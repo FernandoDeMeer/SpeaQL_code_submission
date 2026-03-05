@@ -1,0 +1,2702 @@
+[
+  {
+    "id": "q001",
+    "nr_data": 1,
+    "base_nl_query": "Get the registrant name for the filing with adsh '0000059255-24-000004'",
+    "app_nl_query": "Get the registrant name",
+    "sql_ground_truth": "SELECT s.name, t.tag, t.value FROM SUB s  LEFT JOIN TXT t ON s.adsh = t.adsh AND t.tag = 'EntityRegistrantName' WHERE s.adsh='0000059255-24-000004'",
+    "ground_truth": [
+      [
+        [
+          "SUB_TXT",
+          "no_pk_7c9a782931db5c8a2b30d6b0e68b8e9ecd68d8486064c2b94b65dad4241331c6"
+        ],
+        {
+          "name": "VALHI INC /DE/",
+          "tag": "EntityRegistrantName",
+          "value": "Valhi, Inc."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q002",
+    "nr_data": 4,
+    "base_nl_query": "What direct payments to shareholders were reported in 2022 in the filing 0000002178-24-000035? How much were they per common share?",
+    "app_nl_query": "What direct payments to shareholders were reported in 2022? How much were they per common share?",
+    "sql_ground_truth": "WITH filing AS (      SELECT adsh      FROM SUB         WHERE adsh='0000002178-24-000035' ),   used_tags AS (      SELECT txt.tag, txt.value, txt.ddate      FROM TXT      JOIN filing as f      WHERE txt.adsh=f.adsh      AND ddate BETWEEN 20220101 AND 20221231      UNION       SELECT num.tag, num.value, num.ddate      FROM NUM      JOIN filing as f      WHERE num.adsh=f.adsh      AND ddate BETWEEN 20220101 AND 20221231 )   SELECT tag, value, ddate FROM used_tags  WHERE tag LIKE '%Dividend%' ORDER BY tag ASC",
+    "ground_truth": [
+      [
+        [
+          "used_tags",
+          "no_pk_31c3ec608686307f2f8a9baf10882621f4ab317e619cb79bace089883d10e051"
+        ],
+        {
+          "tag": "CommonStockDividendsPerShareDeclared",
+          "value": 0.96,
+          "ddate": "20221231"
+        }
+      ],
+      [
+        [
+          "used_tags",
+          "no_pk_03cc8acce0b035fede2f417d5fb7cbb80bba47d3d4c3dc898b90f1c52d6e5f99"
+        ],
+        {
+          "tag": "DividendsCommonStockCash",
+          "value": 3746000.0,
+          "ddate": "20221231"
+        }
+      ],
+      [
+        [
+          "used_tags",
+          "no_pk_40943dd488b7958e1658526e155de9990f06ffb10d47ce8e1feccb291fa52d33"
+        ],
+        {
+          "tag": "DividendsPayableCurrentAndNoncurrent",
+          "value": 140300.0,
+          "ddate": "20221231"
+        }
+      ],
+      [
+        [
+          "used_tags",
+          "no_pk_82f95edb90732f356a8b8d108fc5e96526e6e6dd701cf217e363e253f69f2ae6"
+        ],
+        {
+          "tag": "PaymentsOfDividendsCommonStock",
+          "value": 3775000.0,
+          "ddate": "20221231"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q003",
+    "nr_data": 40,
+    "base_nl_query": "For the filing 0001437749-24-009833 list all the figures representing capital investments in 2023.",
+    "app_nl_query": "List all the figures representing capital investments in 2023.",
+    "sql_ground_truth": "SELECT adsh, tag, version, ddate, qtrs, uom, value FROM NUM WHERE adsh='0001437749-24-009833' AND tag IN ('AvailableForSaleSecuritiesDebtSecurities','InvestmentsFairValueDisclosure', 'InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures', 'PaymentsToAcquireOtherInvestments', 'PaymentsToAcquireRealEstateHeldForInvestment', 'OtherInvestments', 'OtherShortTermInvestments') AND ddate BETWEEN 20230101 AND 20231231 ORDER BY tag ASC",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_376a209a8abae8b76260db214e3549b83018e2120ef1969c05285ccf018b1748"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 110955697.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_599b91e775e92551d2a183a8e97f7bb5c35c777bb2db2a0d307ef47f4915bef9"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 42981718.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_d90918e55f728f984015c4a29d6a6f56a0e6a185e0c7171241e1d123db10586a"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 1289774.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_d5c489c7758789567c2c48578c917bab8e0989529bca0d8221860d60f2fde168"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 19493317.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_b51e727457e5862dd1c818c0be7a1beff571d29bc5a38f3739e526b19b12f08e"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 47020328.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_6da22a364b6b9e5fd328d93c184dd332636e330ed15ae5e2e9d9c45413f03e48"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20230930",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 170560.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_b397dba413a18b4c75760d7dc15cb367e59820062ea4f02f8c029f6d38d55a33"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 110955697.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_b397dba413a18b4c75760d7dc15cb367e59820062ea4f02f8c029f6d38d55a33"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 110955697.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_b397dba413a18b4c75760d7dc15cb367e59820062ea4f02f8c029f6d38d55a33"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 110955697.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e134824ad17c09b7e4353152cdc9b02af588dea934b6a225371e9a4cd194af85"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 5629659.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_df0cf82c1259fa5263b57dfe657ce917ad95ba4cd76cf79bcc1a951c346d637d"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 1289774.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_df0cf82c1259fa5263b57dfe657ce917ad95ba4cd76cf79bcc1a951c346d637d"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 1289774.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_30bc6df96e90df163af11a1be21192e6dffc3d1614af0f70ced5cf0dfada2f3f"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 32928128.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_f41fa2f27c874e58e6fadcc3ecbaa7421cc741d804930352f343fa07809a45fc"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 109665923.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_a5e3e503605c840a80165762e1b9f2ce1aa5a64a98bc937039f2b7ba263ec423"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 47020328.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e3c47a988955fb6c5916e2e0a3006a5ed5bf7854bdfd96bae7db734c5d422bd8"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 42981718.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_f3b9ba4af5a16ac9e397064e5a7f60f13095f9dd967e26fe81a6608eeb9f80c9"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 2742384.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_3e9ff27cb1bd0a65fd2fac0ca3532cb3bc60de6dc8ae5aa3f335ef58d4c3f024"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 19493317.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e3c47a988955fb6c5916e2e0a3006a5ed5bf7854bdfd96bae7db734c5d422bd8"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 42981718.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_df0cf82c1259fa5263b57dfe657ce917ad95ba4cd76cf79bcc1a951c346d637d"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 1289774.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_8f8dffc15e04b327356952210dfb1e926ea4494d02b33523c33e3b4a82516c88"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 170560.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_3e9ff27cb1bd0a65fd2fac0ca3532cb3bc60de6dc8ae5aa3f335ef58d4c3f024"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 19493317.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_a5e3e503605c840a80165762e1b9f2ce1aa5a64a98bc937039f2b7ba263ec423"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 47020328.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_8f8dffc15e04b327356952210dfb1e926ea4494d02b33523c33e3b4a82516c88"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "AvailableForSaleSecuritiesDebtSecurities",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 170560.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_01172e1c19eccf0434a1be03fcde5c36a3b605f1251699f8aba72ac26bcdfbee"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "InvestmentsFairValueDisclosure",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 126043614.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_c18f2ef778730f003f36edb79ea33c24c7fa96ff63274bfa6a79069718168726"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "InvestmentsFairValueDisclosure",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 13481395.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_31c80bb0a5481ceb3f3511cd5b780fff20051a6f40b11f9be5354c2afcb8c9f0"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "InvestmentsFairValueDisclosure",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 112562219.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_66a891ae6b7ef1b239b60daab27b08d4f4f2c8bd230731c2ffe371fb134c6b9a"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "InvestmentsInAffiliatesSubsidiariesAssociatesAndJointVentures",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 66340628.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_d2ae67e56c7e31b392062bede627d97b3165794db098b6b1364e76ceebc52dc8"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 8898409.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_8b3f88ff29a2a3f4b33d7c9079c14637e0960d526c00efc31bc38df1f95b7598"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 212610.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_107f0c1285eeaee0bb6a710325aef8c3d9f19e410024341ac87965bcfb2f35b0"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 5495979.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_c6654691f2c955804430f36c6edfe3723c3baa7d60f20d5d7ddfb4be995dbff1"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 250000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_23e9d290c9c4900d3283be9ec5148cbe6b5ef5df2bd1f3702268d1bba37a861e"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 1734622.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_5763d04acd39d23be7c6e362b1af038d497c5301c042fb323b05660b05c0d8ef"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 425000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_2171069b59ca17b6756a97a7c562cfcb7c39d2d1ff187e350e16c921dedc54d6"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 819198.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_99b413a02107cd8b627b97083d2f0cd42c0eebff9769ee9b95b9dd2bc8dee843"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 2197232.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_6ac69c9857de615182ce7935fcd34d523734975e12a43871fe47192dbe806ff7"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherShortTermInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 8898409.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_dd41b41e96999715aaf29d1612d3e39e155de7e48516cbe0646e3ba3d7a6db54"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "OtherShortTermInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 173220.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_bf80859f64b1d80dcb770ada1d8cdc136bbd1a0ab02ae51acc74a901c7dbd65f"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "PaymentsToAcquireOtherInvestments",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 4805110.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_f146e4ace65c57659fb6a7253fb8e703e3cf066aebcacccca9de8d96c754e84a"
+        ],
+        {
+          "adsh": "0001437749-24-009833",
+          "tag": "PaymentsToAcquireRealEstateHeldForInvestment",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 1633885.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q004",
+    "nr_data": 1,
+    "base_nl_query": "Is there any information about cash holdings for the filing 0001521945-24-000010?",
+    "app_nl_query": "Is there any information about cash holdings?'",
+    "sql_ground_truth": "SELECT value FROM TXT WHERE adsh='0001521945-24-000010' AND value LIKE '%INVESTMENT OBJECTIVE AND STRATEGIES%'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_56d32d5b6603a3072f8a22f0e121c005dfbee4c5a3953274a18dab436135b9b7"
+        ],
+        {
+          "value": "INVESTMENT OBJECTIVE AND STRATEGIES General Our Company We are an externally managed, non-diversified, closed-end management investment company that has elected to be regulated as a BDC under the 1940 Act. Our investment objective is to generate current income and, as a secondary objective, capital appreciation by targeting investment opportunities with favorable risk-adjusted returns. Under normal market conditions, we will invest at least 80% of our net assets (plus any borrowings for investment purposes) in floating rate loans and other income producing investments. We will provide shareholders with 60 days advanced notice prior to changing this 80% investment policy. We have also elected to be treated for U.S. federal income tax purposes, and intend to qualify annually, as a RIC under Subchapter M of the Code. Our Adviser manages our investment activities, subject to the overall supervision of our board of directors. We believe the investment management team of our Adviser has a significant amount of experience in the credit business, including originating, underwriting, principal investing and loan structuring. Our Adviser has access to 114 professionals, 47 of whom perform investment advisory functions. We expect to dynamically allocate our assets in varying types of investments based on our analysis of the credit markets, which may result in our portfolio becoming more concentrated in particular types of credit instruments (such as senior secured loans) and less invested in other types of credit instruments. The loans in which we intend to invest are often rated by a nationally recognized ratings organization, and generally carry a rating below investment grade (rated lower than Baa3 by Moodys Investors Service or lower than BBB- by Standard &amp; Poors Corporation  also known as high yield or junk). However, we may also invest in non-rated debt securities. To seek to enhance our returns, we may employ leverage as market conditions permit and at the discretion of our Adviser, but in no event will leverage employed exceed the maximum amount permitted by the 1940 Act. As part of our investment objective to generate current income, we expect that at least 70% of our investments will consist primarily of directly originating senior secured first lien loans and senior secured second lien loans and syndicated senior secured first lien loans, syndicated senior secured second lien loans, and to a lesser extent, subordinated debt. Syndicated secured loans refer to commercial loans provided by a group of lenders that are structured, arranged, and administered by one or several commercial or investment banks, known as arrangers. These loans are then sold (or syndicated) to other banks or institutional investors. Syndicated secured loans may have a first priority lien on a borrowers assets (i.e., senior secured first lien loans), a second priority lien on a borrowers assets (i.e., senior secured second lien loans), or a lower lien or unsecured position on the borrowers assets (i.e., subordinated debt). We expect that up to 30% of our investments will consist of other securities, including private equity (both common and preferred), dividend-paying equity, royalties, and the equity and junior debt tranches of SSNs. The senior secured loans underlying our SSN investments are expected typically to be BB or B rated (non-investment grade, which are often referred to as high yield or junk) and in limited circumstances, unrated, senior secured loans. The SSNs include a diversified portfolio of broadly syndicated loans and do not have direct exposure to real estate or mortgages. An SSN is a special purpose vehicle (typically formed in the Cayman Islands or another similar foreign jurisdiction) formed to purchase the senior secured loans and issue rated debt securities and equity tranches and/or unrated debt securities (generally treated as equity interests). The rated debt tranches consist of long-term, financing with specified financing terms, including floating interest rates at a stated spread to LIBOR. The equity tranche represents the most junior tranche in the SSN capital structure. The equity tranche is typically not rated and is subordinated to the debt tranches. The holders of equity tranche interests are typically entitled to any cash reserves that form part of the structure at the point at which such reserves are permitted to be released. The equity tranche captures available payments at the bottom of the payment waterfall, after operational and administrative costs of the SSN and servicing of the debt securities. Investment Objectives and Strategy Our investment objective is to generate current income and, as a secondary objective, capital appreciation by targeting investment opportunities with favorable risk-adjusted returns. Under normal market conditions, we will invest at least 80% of our net assets (plus any borrowings for investment purposes) in floating rate loans and other income producing investments. We will provide shareholders with 60 days advanced notice prior to changing this 80% investment policy. We intend to meet our investment objective by primarily lending to and investing in the debt of privately-owned U.S. middle market companies, which we define as companies with annual revenue between $50 million and $2.5 billion. We may on occasion invest in smaller or larger companies if an attractive opportunity presents itself, especially when there are dislocations in the capital markets. We expect to focus primarily on directly originating senior secured first lien loans and senior secured second lien loans and making investments in syndicated senior secured first lien loans, syndicated senior secured second lien loans, and to a lesser extent, subordinated debt, of middle market companies in a broad range of industries. We expect our target credit investments will typically have initial maturities between three and ten years and generally range in size between $1 million and $100 million, although the investment size will vary with the size of our capital base. We expect that the majority of our debt investments will bear interest at floating interest rates, but our portfolio may also include fixed-rate investments. We expect to make our investments directly through the primary issuance by the borrower or in the secondary market. Risk-adjusted returns refers to a measure of investment return per unit of risk and provides a framework to compare and evaluate investment opportunities with differing risk/return profiles. The term risk-adjusted returns does not imply that we employ low-risk strategies or that an investment should be considered a low-risk or no risk investment. Our principal focus is to directly originate senior secured first lien loans and senior secured second lien loans and invest in syndicated senior secured first lien loans, syndicated senior secured second lien loans, and to a lesser extent, subordinated debt of private middle market U.S. companies in a broad range of industries. In addition, we expect to invest up to 30% of our portfolio of investments in other securities, including private equity (both common and preferred), dividend-paying equity, royalties, and the equity and junior debt tranches of SSNs. The senior secured loans underlying our SSN investments are expected typically to be BB or B rated (non-investment grade, which are often referred to as high yield or junk) and in limited circumstances, unrated, senior secured loans. We will be subject to certain regulatory restrictions in making our investments. On January 13, 2020 (amended on August 2, 2022), we received a co- investment exemptive order from the SEC (the Order) granting us the ability to negotiate terms other than price and quantity of co-investment transactions with other funds managed or owned by our Adviser or certain affiliates, including Prospect Capital Corporation and Priority Income Fund, Inc., where co-investing would otherwise be prohibited under the 1940 Act, subject to the conditions included therein. Under the terms of the Order, a majority of our independent directors who have no financial interest in the transaction must make certain conclusions in connection with a co-investment transaction, including that (1) the terms of the proposed transaction, including the consideration to be paid, are reasonable and fair to us and our stockholders and do not involve overreaching of us or our stockholders on the part of any person concerned and (2) the transaction is consistent with the interests of our stockholders and is consistent with our investment objective and strategies. The Order also imposes reporting and record keeping requirements and limitations on transactional fees. We may only co-invest with other funds managed or owned by our Adviser or certain affiliates in accordance with such Order and existing regulatory guidance. Investment Types Our portfolio is expected to be comprised primarily of investments in directly originated or syndicated senior secured first lien loans, directly originated or syndicated senior secured second lien loans, and to a lesser extent, subordinated debt of private middle market U.S. companies. In addition, a portion of our portfolio may be comprised of other securities, including private equity (both common and preferred), dividend-paying equity, royalties, and the equity and junior debt tranches of SSNs. Our Adviser will seek to tailor our investment focus as market conditions evolve. Depending on market conditions, we may increase or decrease our exposure to less senior portions of the capital structure, where returns tend to be stronger in a more stable or growing economy, but less secure in weak economic environments. Below is a diagram illustrating where these investments lie in a typical portfolio companys capital structure. Senior secured first lien debt is situated at the top of the capital structure and typically has the first claim on the assets and cash flows of the company, followed by senior secured second lien debt, subordinated debt, preferred equity and, finally, common equity. Due to this priority of cash flows, an investments risk increases as it moves further down the capital structure. Investors are usually compensated for this risk associated with junior status in the form of higher returns, either through higher interest payments or potentially higher capital appreciation. We will rely on our Advisers experience to structure investments, possibly using all levels of the capital structure, which we believe will perform in a broad range of economic environments. Typical Leveraged Capital Structure Diagram Senior Secured First Lien Loans Senior secured first lien loans are situated at the top of the capital structure. Because these loans generally have priority in payment, they carry the least risk among all investments in a firm. Generally, our senior secured first lien loans are expected to have initial maturities of three to seven years, offer some form of amortization, and have first priority security interests in the assets of the borrower. Generally, we expect that the interest rate on our senior secured first lien loans typically will have variable rates ranging between 3.0% and 8.0% over a standard benchmark, such as the prime rate, SOFR or LIBOR. Senior Secured Second Lien Loans Senior secured second lien loans are immediately junior to senior secured first lien loans and have substantially the same collateral and covenant structures as senior secured first lien loans. Generally, our senior secured second lien loans are expected to have initial maturities of three to eight years. Senior secured second lien loans, however, are granted a second priority security interest in the assets of the borrower, which means that any realization of collateral will generally be applied to pay senior secured first lien loans in full before senior secured second lien loans are paid and the value of the collateral may not be sufficient to repay in full both senior secured first lien loans and senior secured second lien loans. In return for this junior ranking, senior secured second lien loans generally offer higher returns compared to senior secured first lien debt. These higher returns come in the form of higher interest. Generally, we expect that the interest rate on our senior secured second lien loans typically will have variable rates ranging between 6.0% and 11.0% over a standard benchmark, such as the prime rate, SOFR or LIBOR. Senior Secured Bonds Senior secured bonds are generally secured by collateral on a senior, pari passu or junior basis with other debt instruments in an issuers capital structure and have similar covenant structures as senior secured loans. Generally, we expect these investments to carry a fixed rate of 6.0% to 12.0% and have initial maturities of three to ten years. Subordinated Debt In addition to directly originated and syndicated senior secured first lien loans, directly originated and syndicated senior secured second lien loans and senior secured bonds, we may invest a portion of our assets in subordinated debt. Subordinated debt investments usually rank junior in priority of payment to senior debt and are often unsecured, but are situated above preferred equity and common equity in the capital structure. In return for their junior status compared to senior debt, subordinated debt investments typically offer higher returns through both higher interest rates and possible equity ownership in the form of warrants, enabling the lender to participate in the capital appreciation of the borrower. These warrants typically require only a nominal cost to exercise. We generally will target subordinated debt with interest-only payments throughout the life of the security, with the principal due at maturity. Typically, subordinated debt investments have maturities of five to ten years. Generally, we expect these securities to carry a fixed rate, or a floating current yield of 8.0% to 18.0% over a standard benchmark. In addition, we may receive additional returns from any warrants we may receive in connection with these investments. In some cases, a portion of the total interest may accrue or be payment-in-kind (PIK). Equity and Equity-Related Securities While we intends to maintain our focus on investments in debt securities, from time to time, when We sees the potential for extraordinary gain, or in connection with securing particularly favorable terms in a debt investment, We may enter into investments in preferred or common equity, typically in conjunction with a private equity sponsor we believe to be sophisticated and seasoned. With respect to any preferred or common equity investments, we expect to target an annual investment return of at least 15%. Non-U.S. Securities We may invest in non-U.S. securities, which may include securities denominated in U.S. dollars or in non-U.S. currencies, to the extent permitted by the 1940 Act. For example, the SSNs in which we may invest generally consist of a special purpose vehicle (typically formed in the Cayman Islands or another similar foreign jurisdiction) formed to purchase the senior secured loans and issue rated debt securities and equity tranches and/or unrated debt securities (generally treated as equity interests). Subordinated Structured Notes We may invest in subordinated structured notes or SSNs, which are a form of securitization where payments from multiple loans are pooled together. Investors may purchase one or more tranches of an SSN and each tranche typically reflects a different level of seniority in payment from the SSN. Other Securities We may also invest from time to time in royalties, derivatives, including total return swaps and credit default swaps, that seek to modify or replace the investment performance of a particular reference security or other asset. These transactions are typically individually negotiated, non-standardized agreements between two parties to exchange payments, with payments generally calculated by reference to a notional amount or quantity. Swap contracts and similar derivative contracts are not traded on exchanges; rather, banks and dealers act as principals in these markets. We anticipate that any use of derivatives would primarily be as a substitute for investing in conventional securities. Cash and Cash Equivalents We may maintain a certain level of cash or equivalent instruments, including money market funds, to make follow-on investments, if necessary, in existing portfolio companies or to take advantage of new opportunities. Sources of Income The primary means through which our stockholders will receive a return of value is through interest income, dividends and capital gains generated by our investments. In addition to these sources of income, we may receive fees paid by our portfolio companies, including one-time closing fees paid at the time each investment is made. Closing fees typically range from 1.0% to 2.0% of the purchase price of an investment. In addition, we may generate revenues in the form of non-recurring commitment, origination, structuring or diligence fees, fees for providing managerial assistance, consulting fees and performance-based fees. Risk Management We seek to limit the downside potential of our investment portfolio by:  applying our investment strategy guidelines for portfolio investments;  requiring a total return on investments (including both interest and potential appreciation) that adequately compensates us for credit risk;  allocating our portfolio among various issuers and industries, size permitting, with an adequate number of companies, across different industries, with different types of collateral; and  negotiating or seeking debt investments with covenants or features that protect us while affording portfolio companies flexibility in managing their businesses consistent with preservation of capital, which may include affirmative and negative covenants, default penalties, lien protection, change of control provisions and board rights. We may also enter into interest rate hedging transactions at the sole discretion of our Adviser. Such transactions will enable us to selectively modify interest rate exposure as market conditions dictate. Affirmative Covenants Affirmative covenants require borrowers to take actions that are meant to ensure the solvency of the company, facilitate the lenders monitoring of the borrower, and ensure payment of interest and loan principal due to lenders. Examples of affirmative covenants include covenants requiring the borrower to maintain adequate insurance, accounting and tax records, and to produce frequent financial reports for the benefit of the lender. Negative Covenants Negative covenants impose restrictions on the borrower and are meant to protect lenders from actions that the borrower may take that could harm the credit quality of the lenders investments. Examples of negative covenants include restrictions on the payment of dividends and restrictions on the issuance of additional debt or making capital expenditures without the lenders approval. In addition, certain covenants may restrict a borrowers activities by requiring it to meet certain earnings interest coverage ratio and leverage ratio requirements. These covenants are also referred to as financial or maintenance covenants. Investment Process The investment professionals utilized by our Adviser have spent their careers developing the resources necessary to invest in private companies. Our transaction process is highlighted below. Our Transaction Process Sourcing In order to source transactions, our Adviser will generate investment opportunities through syndicate and club deals and, subject to regulatory constraints, through the proprietary origination channels of the investment team at our Adviser and its affiliates. In club deals, we along with other investors (including our affiliates) pool assets together to purchase securities collectively. With respect to syndicate and club deals, the investment professionals of our Adviser have built a network of relationships with commercial and investment banks, finance companies and other investment funds as a result of the long track record of its investment professionals in the leveraged finance marketplace. With respect to our Advisers proprietary origination channel, our Adviser will seek to leverage the relationships with private equity sponsors and financial intermediaries. We believe that the broad networks of our Adviser and its affiliates will produce a significant pipeline of investment opportunities for us. Evaluation Initial review. In its initial review of an investment opportunity, our Advisers professionals examine information furnished by the target company and external sources, such as rating agencies, if applicable, to determine whether the investment meets our basic investment criteria and other guidelines specified by our Adviser, within the context of proper portfolio diversification, and offers an acceptable probability of attractive returns with identifiable downside risk. For the majority of securities available on the secondary market, a comprehensive analysis is conducted and continuously maintained by a dedicated research analyst, the results of which are available for the investment team to review. In the case of a primary or secondary transaction, our Adviser will conduct detailed due diligence investigations as necessary. Credit analysis/due diligence. Before undertaking an investment, the transaction team expects to conduct a thorough due diligence review of the opportunity to ensure the company fits our investment strategy, which may include:  a full operational analysis to identify the key risks and opportunities of the companys business, including a detailed review of historical and projected financial results;  a detailed analysis of industry dynamics, competitive position, regulatory, tax and legal matters;  on-site visits, if deemed necessary;  background checks to further evaluate management and other key personnel;  a review by legal and accounting professionals, environmental or other industry consultants, if necessary;  financial sponsor due diligence, including portfolio company and lender reference checks, if necessary; and  a review of managements experience and track record. Execution Recommendation. The professionals of our Adviser will recommend investment opportunities for its approval. Our Adviser seeks to maintain a defensive approach toward its investment recommendations by emphasizing risk control in its investment process, which includes (i) the pre-review of each opportunity by one of its investment professionals to assess the general quality, value and fit relative to our portfolio and (ii) where possible, transaction structuring with a focus on preservation of capital in varying economic environments. Approval. After completing its internal transaction process, our Adviser will make formal recommendations for review and approval by our Advisers investment committee. In connection with its recommendation, it will transmit any relevant underwriting material and other information pertinent to the decision-making process. The consummation of a transaction will require unanimous approval of the members of our Advisers investment committee. Post-Investment Monitoring Portfolio Monitoring. Our Adviser monitors our portfolio with a focus toward anticipating negative credit events. To maintain portfolio company performance and help to ensure a successful exit, our Adviser expects to work closely with, as applicable, the lead equity sponsor, loan syndicator or agent bank, portfolio company management, consultants, advisers and other security holders to discuss financial position, compliance with covenants, financial requirements, and execution of the companys business plan. In addition, depending on the size, nature and performance of the transaction, we may occupy a seat or serve as an observer on a portfolio companys board of directors or similar governing body. Typically, our Adviser will receive financial reports detailing operating performance, sales volumes, margins, cash flows, financial position and other key operating metrics on a quarterly basis from our portfolio companies. Our Adviser intends to use this data, combined with due diligence gained through contact with the companys customers, suppliers, competitors, market research, and/or other methods, to conduct an ongoing, rigorous assessment of the companys operating performance and prospects. Valuation Process. Each quarter, we will value investments in our portfolio, and such values will be disclosed each quarter in reports filed with the SEC. The fair values of the Companys investments are determined in good faith by the Companys board of directors. The Companys board of directors is solely responsible for the valuation of the Companys portfolio investments at fair value as determined in good faith pursuant to the Companys valuation policy and consistently applied valuation process. Investments for which market quotations are readily available will be recorded at such market quotations. With respect to investments for which market quotations are not readily available, our board of directors will determine the fair value of such investments in good faith, utilizing the input of our valuation committee, our Adviser and any other professionals or materials that our board of directors deems worthy and relevant, including independent third-party pricing services and independent third-party valuation services, if applicable. Managerial Assistance. As a BDC, we must offer, and provide upon request, managerial assistance to certain of our portfolio companies. This assistance could involve, among other things, monitoring the operations of our portfolio companies, participating in board and management meetings, consulting with and advising officers of portfolio companies and providing other organizational and financial guidance. Depending on the nature of the assistance required, our Adviser will provide such managerial assistance on our behalf to portfolio companies that request this assistance. To the extent fees are paid for these services, we, rather than our Adviser, will retain any fees paid for such assistance. Exit We will attempt to invest in securities that may be sold in the privately negotiated over-the-counter market, providing us a means by which we may exit our positions. We expect that a large portion of our portfolio may be sold on this secondary market for the foreseeable future, depending on market conditions. For any investments that are not able to be sold within this market, we will focus primarily in investing in companies whose business models and growth prospects offer attractive exit possibilities, including repayment of our investments, an initial public offering of equity securities, a merger, a sale or a recapitalization. Potential Competitive Strengths We believe that we offer investors the following potential competitive strengths: Established platform with seasoned investment professionals . We believe that we will benefit from the wide resources of our Adviser, which is focused on sourcing, structuring, executing, monitoring and exiting a broad range of investments. We believe the personnel of our Adviser possess market knowledge, experience and industry relationships that enable them to identify potentially attractive investment opportunities in companies pursuant to our investment strategy. Long-term investment horizon . Our long-term investment horizon gives us greater flexibility, which we believe will allow us to maximize returns on our investments. Unlike private equity and venture capital funds, we are not subject to standard periodic capital return requirements. Such requirements typically stipulate that capital invested in these funds, together with any capital gains on such investment, can be invested only once and must be returned to investors after a pre-determined time period. We believe that our ability to make investments with a longer-term view and without the capital return requirements of traditional private investment vehicles will provide us with greater flexibility to seek investments that can generate attractive returns on invested capital. Disciplined, income-oriented investment philosophy . Our Adviser is expected to employ an investment approach focused on current income and long-term investment performance. This investment approach involves a multi-stage selection process for each investment opportunity, as well as ongoing monitoring of each investment made, with particular emphasis on early detection of deteriorating credit conditions at portfolio companies, which could result in adverse portfolio developments. This strategy is designed to maximize current income and minimize the risk of capital loss while maintaining potential for long-term capital appreciation. Investment expertise across all levels of the corporate capital structure . Our Adviser believes that its broad expertise and experience investing at all levels of a companys capital structure will enable us to manage risk while affording us the opportunity for significant returns on our investments. Our Adviser will attempt to capitalize on this expertise in an effort to produce and maintain an investment portfolio that will perform in a broad range of economic conditions. We generally will not be subject to U.S. federal income tax on income and capital gains distributed to stockholders . As a RIC, we generally will not be subject to U.S. federal income tax on any ordinary income or capital gains that we recognize from our investments and timely distribute to our stockholders as dividends. Furthermore, tax-exempt investors in our shares who do not finance their acquisition of our shares with indebtedness should not be required to recognize unrelated business taxable income, or UBTI, unlike certain direct investors in master limited partnerships (MLPs). We expect to form wholly owned subsidiaries that are classified as corporations for U.S. federal income tax purposes to make or hold certain investments in non-traded limited partnerships or other entities classified as partnership for U.S. federal tax purposes. Although, as a RIC, dividends received by us from taxable entities and distributed to our stockholders will not be subject to U.S. federal income tax, any subsidiaries that are classified as corporations for U.S. federal income tax purposes we own will generally be subject to U.S. federal and state income taxes imposed at corporate rates on their income. As a result, the net return to us on such investments that are held by such subsidiaries will be reduced to the extent that the subsidiaries are subject to income taxes. Status of Our Prior Public Offering The Company previously conducted an offering of its Class A common stock. This offering was terminated on February 19, 2021. As of that date, the Company had sold $24,195,384 in Shares pursuant to the applicable registration statement, excluding $2,619,663 in shares issued pursuant to the Companys distribution reinvestment plan. In connection with the termination of the public continuous offering of shares, the Company deregistered the remaining $275,804,616 in shares, which remain unsold as of that date and the date of this filing. The Class A shares are not being offered as a part of this prospectus and are only expected to be issued in the future in connection with the reinvestment of distributions. Operations Prospect Capital Management has engaged Preferred Shareholder Services, LLC, an affiliate of the Dealer Manager, to provide certain non-offering issuer support services pursuant to a services agreement for the benefit of the Company. Facilities Our executive offices are located at 10 East 40 th Street, 42 nd Floor, New York, New York 10016. We believe that our current office facilities are adequate for our business as we intend to conduct it. Legal Proceedings Neither we nor our Adviser are currently subject to any material legal proceedings. Nonetheless members of our Adviser, in their other capacities, may currently be involved in legal proceedings and from time to time, we, our Adviser and individuals utilized by us or our Adviser may be a party to certain legal proceedings in the ordinary course of business, including proceedings relating to the enforcement of our rights under contracts. The outcome of any potential legal proceedings cannot be predicted with certainty."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q005",
+    "nr_data": 6,
+    "base_nl_query": "Return all the available geographical information related to the 'FEDERAL HOME LOAN BANK OF CINCINNATI' whose accesion number is 0001326771-24-000013.",
+    "app_nl_query": "Return all the available geographical information.",
+    "sql_ground_truth": "SELECT tag, value FROM TXT  WHERE adsh='0001326771-24-000013' AND (tag='CityAreaCode' OR tag='EntityAddressAddressLine1' OR tag='EntityAddressCityOrTown' OR tag='EntityAddressPostalZipCode' OR tag='EntityAddressStateOrProvince' OR tag='EntityIncorporationStateCountryCode')",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_144e05dcc45fc024e9aadebca411a0adcb4b7659eee23ceca7b28caf1581f35b"
+        ],
+        {
+          "tag": "CityAreaCode",
+          "value": "513"
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_d700bd1c42f0e1749bef468aa8590060e540bbf36b001faad9844351c2436b27"
+        ],
+        {
+          "tag": "EntityAddressAddressLine1",
+          "value": "600 Atrium Two, P.O. Box 598"
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_25e96ad5bd4092390bfc6719ee7073170285ad8ad8dfc06d8666fc6cb0ddaa1f"
+        ],
+        {
+          "tag": "EntityAddressCityOrTown",
+          "value": "Cincinnati"
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_c9326c6af79ca5306a68d97a5fdd38c407e9ac367e006c290647c2eded925d44"
+        ],
+        {
+          "tag": "EntityAddressPostalZipCode",
+          "value": "45201-0598"
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_ec76baa500f5502731cca430854f0c9084a62b5156aca8be687be9269e856be3"
+        ],
+        {
+          "tag": "EntityAddressStateOrProvince",
+          "value": "OH"
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_2eceba54d7a4d5d3f14dd23e273d355c918fb0fc450572fa74356a90be21aca5"
+        ],
+        {
+          "tag": "EntityIncorporationStateCountryCode",
+          "value": "X1"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q006",
+    "nr_data": 1,
+    "base_nl_query": "Does the filing PARTY CITY HOLDCO INC. (with adsh 0000950170-24-037962) include goodwill in the calculation of assets?",
+    "app_nl_query": "Does the filing include goodwill in the calculation of assets?",
+    "sql_ground_truth": "SELECT *  FROM CAL   WHERE adsh='0000950170-24-037962' AND ctag='Goodwill' AND ptag='Assets'",
+    "ground_truth": [
+      [
+        [
+          "CAL",
+          "no_pk_68cc5841012efd1fe32787ba3281459cce30cabb1bfe5c291fe8e0dc1cf150f9"
+        ],
+        {
+          "adsh": "0000950170-24-037962",
+          "grp": 18.0,
+          "arc": 29.0,
+          "negative": 1.0,
+          "ptag": "Assets",
+          "pversion": "us-gaap/2022",
+          "ctag": "Goodwill",
+          "cversion": "us-gaap/2022"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q007",
+    "nr_data": 8,
+    "base_nl_query": "In the filing 0000950170-24-037962 what figures are included in the calculation of assets?",
+    "app_nl_query": "What figures are included in the calculation of assets?",
+    "sql_ground_truth": "SELECT ctag  FROM CAL  WHERE adsh='0000950170-24-037962' AND ptag='Assets'",
+    "ground_truth": [
+      [
+        [
+          "CAL",
+          "no_pk_a772378594c390d8cea7183d5ff5176f0a633565c3ebad7957829763e1200360"
+        ],
+        {
+          "ctag": "AssetsCurrent"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_4abbfc7af5dffef861b3a8d441adf7e4ab8d8dc2d146857b0cf83f6e6a448e36"
+        ],
+        {
+          "ctag": "FiniteLivedIntangibleAssetsNet"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_b3e411d01e1bbd2b06b52d8ca628ee8a12844aca0b77c17a0dd7706764c15d4b"
+        ],
+        {
+          "ctag": "Goodwill"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_75f8238e0b007df960344d0b588fedf8976db0424da20966c23356c4bee1de69"
+        ],
+        {
+          "ctag": "IndefiniteLivedTradeNames"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_382a7ccb21e2ce01b456cfadc10c9ef78b2ff0fc9fc27925c4dd0baa8deb6e1c"
+        ],
+        {
+          "ctag": "OperatingLeaseRightOfUseAsset"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_c737fa979580814f9d0247cdd7f4612b56e350fc104fb93724387b942b186bd8"
+        ],
+        {
+          "ctag": "OtherAssetsNoncurrent"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_c737fa979580814f9d0247cdd7f4612b56e350fc104fb93724387b942b186bd8"
+        ],
+        {
+          "ctag": "OtherAssetsNoncurrent"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_386e9e280ce2ebf42dda426fe7e21274af70b30bc685b41072011e5f8668647a"
+        ],
+        {
+          "ctag": "PropertyPlantAndEquipmentNet"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q008",
+    "nr_data": 2,
+    "base_nl_query": "What kind of filing is the one with adsh 0001108426-24-000015?",
+    "app_nl_query": "What kind of filing is this?",
+    "sql_ground_truth": "SELECT form, NULL as tag FROM SUB  WHERE adsh='0001108426-24-000015'  UNION ALL  SELECT value, tag FROM TXT WHERE adsh='0001108426-24-000015' AND tag='DocumentType'",
+    "ground_truth": [
+      [
+        [
+          "SUB",
+          "no_pk_ea8f8ee52877f776060409b993ab51bd00a7d24600ae934dc6a6791d7e3a9a13"
+        ],
+        {
+          "form": "8-K",
+          "tag": null
+        }
+      ],
+      [
+        [
+          "SUB",
+          "no_pk_076b6cbaa0f1b214139ff0e53843a3e663c7940bcce0514fe3843c252a666eb3"
+        ],
+        {
+          "form": "8-K",
+          "tag": "DocumentType"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q009",
+    "nr_data": 1,
+    "base_nl_query": "What is the latest debt value reported by the filing 0001521945-24-000010?",
+    "app_nl_query": "What is the latest debt value reported?",
+    "sql_ground_truth": "WITH chronological_debts AS (     SELECT tag, ddate, value     FROM NUM      WHERE adsh='0001521945-24-000010'      AND tag='SeniorSecuritiesAmt'     ORDER BY ddate DESC )    SELECT tag, ddate, value FROM chronological_debts LIMIT 1",
+    "ground_truth": [
+      [
+        [
+          "chronological_debts",
+          "no_pk_0327cdb50125a906b2fb7aa5c58598659a1a1fdc307b6a922440ab5c0dc5c710"
+        ],
+        {
+          "tag": "SeniorSecuritiesAmt",
+          "ddate": "20230630",
+          "value": 8600000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q010",
+    "nr_data": 1,
+    "base_nl_query": "Check if the report data of the filing of RED RIVER BANCSHARES INC with unique code 0001071236-24-000011 lies in 2024",
+    "app_nl_query": "Check if the report data lies in 2024",
+    "sql_ground_truth": "SELECT period, filed, accepted FROM SUB  WHERE adsh='0001071236-24-000011'  AND name='RED RIVER BANCSHARES INC'  AND period BETWEEN 20240101 AND 20250101",
+    "ground_truth": [
+      [
+        [
+          "SUB",
+          "no_pk_e4515a4a29e6da73eb5fbde87de713e3caad1a2c14f4ba6ceb3130565bb1d2ee"
+        ],
+        {
+          "period": "20240131",
+          "filed": "20240125",
+          "accepted": "2024-01-25 16:36:00.0"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q011",
+    "nr_data": 2,
+    "base_nl_query": "Are there any disclaimers about the assumptions or estimates reported in the filing 0000950170-24-031457?",
+    "app_nl_query": "Are there any disclaimers about the assumptions or estimates reported?",
+    "sql_ground_truth": "SELECT tag, version, value  FROM TXT  WHERE adsh='0000950170-24-031457'  AND tag='UseOfEstimates' AND version='us-gaap/2023' AND ddate=20240131 AND qtrs=3 AND iprx=0  UNION ALL  SELECT tag, version, value FROM TXT WHERE adsh='0000950170-24-031457' AND tag='SignificantAccountingPoliciesTextBlock'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_87bb982556fc3ccef67bd1f7fa977ba0009939caf0ed9a739e7b884fcc921738"
+        ],
+        {
+          "tag": "UseOfEstimates",
+          "version": "us-gaap/2023",
+          "value": "Use of Estimates The preparation of financial statements in conformity with US GAAP requires management to make estimates and assumptions that affect the reported amounts of assets and liabilities, and the disclosure of contingent assets and liabilities as of the date of the financial statements, and the reported amounts of revenues and expenses during the reporting periods. Actual results could differ from those estimates."
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_bd75ee8b69f64ee631efdc02e1de1940963751b577db295b96bf65a6a613b1cc"
+        ],
+        {
+          "tag": "SignificantAccountingPoliciesTextBlock",
+          "version": "us-gaap/2023",
+          "value": "Note 3. Summary of Significant Accounting Policies Basis of Presentation The accompanying unaudited condensed financial statements have been prepared in conformity with accounting principles generally accepted in the United States of America (US GAAP) and in conformity with the instructions on Form 10-Q and Rule 8-03 of Regulation S-X and the related rules and regulations of the U.S. Securities and Exchange Commissions (SEC) and have been prepared on a basis which assumes that the Company will continue as a going concern, which contemplates the realization of assets and the satisfaction of liabilities and commitments in the normal course of business. In the opinion of management, the unaudited interim financial statements reflect all adjustments, which include only normal recurring adjustments necessary for the fair statement of the balances and results of operations for the periods presented. The interim operating results are not necessarily indicative of results that may be expected for any subsequent period. The accompanying unaudited condensed financial statements should be read in conjunction with the Company's audited financial statements and notes thereto included in the 2023 Annual Report on Form 10-K. Use of Estimates The preparation of financial statements in conformity with US GAAP requires management to make estimates and assumptions that affect the reported amounts of assets and liabilities, and the disclosure of contingent assets and liabilities as of the date of the financial statements, and the reported amounts of revenues and expenses during the reporting periods. Actual results could differ from those estimates. Cash and Cash Equivalents The Company considers all highly liquid investments with original maturities of three months or less to be cash equivalents. The fair value of cash and cash equivalents approximates carrying value. At times, the Companys cash balances may exceed the current insured amounts under the Federal Deposit Insurance Corporation (FDIC). Inventory All inventories are stated at lower of cost or net realizable value, with cost determined substantially on a first-in, first-out basis. Selling, general, and administrative expenses are not inventoried, but are charged to expense when incurred. The following is a summary of the Companys inventories at January 31, 2024 and April 30, 2023: January 31, April 30, 2024 2023 Raw materials $ 322,996 $ 322,996 Sub-assemblies 341,355 347,436 Work in progress 21,741 21,741 Finished goods 28,662 28,662 Reserve for obsolescence ( 44,476 ) ( 44,476 ) Total Inventory $ 670,278 $ 676,359 Inventory consists mainly of raw materials and components used in the current hardware build of the MyoVista. Devices and components are used for research and development purposes and device sales, which to date have been in international markets as sale of the MyoVista in the U.S. is subject to FDA clearance. The Company is partway through a new pivotal clinical validation study and device testing necessary for a revised FDA submission, which is targeted to take place during the first half of calendar year 2024. The Company believes that its hardware platform is in final form, however, prior to FDA clearance and market acceptance of the MyoVista, further hardware changes could be necessary which could have an impact on net realizable values. The majority of the Companys current inventory is intended for use to build finished products following regulatory clearance. Finished products do not contain materials that would degrade significantly over the useable life of the device and are considered to have a useable life of over seven years . Existing inventory related to finished devices are planned to be updated to the latest hardware revision and specifically allocated to a limited distribution for field reliability studies and are not slated for general purpose sales. The Company periodically evaluates inventory and makes specific write-offs and provides an allowance for inventory that is considered obsolete due to hardware and or software related changes. If the Company does not receive FDA clearance and/or obtain market acceptance of the MyoVista, the Company could have further material write-downs of inventory due to obsolescence in excess of the amount currently reserved. Research and Development Expenses In accordance with ASC Topic 730, Accounting for Research and Development Costs, the Company accounts for research and development expenditures, including payments to collaborative research partners and regulatory filing costs, as research and development expenses. Accordingly, all research and development costs are charged to expense as incurred. Property and Equipment Property and equipment are recorded at cost less accumulated depreciation. Depreciation is computed using the straight-line method over the estimated useful lives. The range of estimated useful lives used to calculate depreciation is generally 3 to 5 years. Ordinary maintenance and repairs are charged to expense as incurred, and replacements and betterments are capitalized. When items are retired or otherwise disposed, the related cost and accumulated depreciation are removed from the accounts and any resulting gain or loss is reflected in other income (expense). The following is a summary of the Companys property and equipment at January 31, 2024 and April 30, 2023: January 31, April 30, 2024 2023 Equipment $ 413,576 $ 397,920 Furniture &amp; fixtures 102,563 102,563 Leasehold improvements 32,812 32,812 Total 548,951 533,295 Less: Accumulated depreciation ( 490,558 ) ( 471,867 ) Property and equipment, net $ 58,393 $ 61,428 Deferred Offering Costs The Company capitalizes certain legal, professional, and other-third party charges, related to capital raises through a sale of Common Stock in its IPO or other ongoing equity financings, as deferred offering costs until fully consummated. On October 16, 2023, the Company filed a registration statement on Form S-1, as amended, which has not yet been declared effective by the SEC. These costs are deferred until the completion of the offerings at which time they are reclassified to additional paid-in-capital as a reduction of the offering proceeds. If the Company terminates the planned offering or there is a significant delay, all of the deferred offering costs will be written off to operating expenses. In March, 2023, the Company entered into the Equity Line. Deferred offering costs associated with the Equity Line are reclassified to additional paid in capital on a pro-rata basis over the term of the agreement. In September 2023, the Company entered into an EDA to sell its Common Stock under the ATM Facility. Deferred offering costs associated with the ATM Facility are reclassified to additional paid in capital on a pro-rata basis. As of January 31, 2024 and April 30, 2023, $ 655,579 and $ 175,921 of deferred offering costs were capitalized on the balance sheet, respectively. Fair Value Measurements The accounting guidance establishes a consistent framework for measuring fair value and expands disclosure for each major asset and liability category measured at fair value on either a recurring or nonrecurring basis. Fair value is defined as the exchange price that would be received for an asset or paid to transfer a liability in the principal or most advantageous market for the asset transaction between market participants on the measurement date. Where available, fair value is based on observable market prices or is derived from such prices. As such, fair value is a market-based measurement that should be determined based on assumptions that market participants would use in pricing an asset or liability. As a basis for considering such assumptions, the accounting guidance establishes a three-tier fair value hierarchy, which prioritizes the inputs used in measuring fair value as follows:  Level 1  Observable inputs such as quoted prices in active markets;  Level 2  Inputs, other than the quoted prices in active markets, that are observable either directly or indirectly;  Level 3  Unobservable inputs in which there is little or no market data, which require the reporting entity to develop its own assumptions. In certain cases, the inputs used to measure fair value may fall into different levels of the fair value hierarchy. In such cases, the assignment of an asset or liability within the fair value hierarchy is based on the lowest level of input that is significant to the fair value measurement. Managements assessment of the significance of a particular input to the fair value measurement in its entirety requires judgment and considers factors specific to the asset or liability. The carrying amounts of the Companys financial instruments, which primarily include cash and cash equivalents, accounts payable and accrued expenses, approximate their fair values due to their short-term nature. The carrying amounts of the Companys existing notes payable approximate their fair values at the stated interest rates and are reflective of the prevailing market rates. Long-Lived Assets Long-lived assets, such as equipment and intangible assets, are reviewed for impairment whenever events or changes in circumstances indicate that the carrying amount of an asset may not be recoverable. If circumstances require a long-lived asset or asset group be tested for possible impairment, the Company first compares undiscounted cash flows expected to be generated by that asset or asset group to its carrying amount. If the carrying amount of the long-lived asset or asset group is determined to not be recoverable on an undiscounted cash flow basis, an impairment is recognized to the extent the carrying amount exceeds its fair value. Leases The Company determines if a contract is or contains a lease at inception or modification of a contract. A contract is or contains a lease if the contract conveys the right to control the use of an identified asset for a period in exchange for consideration. Control over the use of the identified asset means the lessee has both (a) the right to obtain substantially all of the economic benefits from the use of the asset and (b) the right to direct the use of the asset. Right-of-use assets and liabilities are recognized based on the present value of future minimum lease payments over the expected lease term at commencement date. The Company measures and records a right-of-use asset and lease liability based on the discount rate implicit in the lease, if known. In cases where the discount rate implicit in the lease is not known, the Company measures the right-of-use assets and lease liabilities using a discount rate equal to the Companys estimated incremental borrowing rate for loans with similar collateral and duration. The Company elected to not apply the recognition requirements to leases of all classes of underlying assets that, at the commencement date, have a lease term of 12 months or less and do not include an option to purchase the underlying asset that the lessee is reasonably certain to exercise. Instead, lease payments for such short-term leases are recognized in operations on a straight-line basis over the lease term and variable lease payments in the period in which the obligation for those payments is incurred. Stock-Based Compensation The Company accounts for employee and non-employee share-based compensation in accordance with the provisions of ASC 718, Compensation  Stock Compensation . Under ASC 718, share-based compensation cost is measured at the grant date, based on the calculated fair value of the award, and is recognized as an expense over the requisite service period (generally the vesting period of the equity grant). The estimated fair value of Common Stock option awards is calculated using the Black-Scholes option pricing model, based on key assumptions such as fair value of Common Stock, expected volatility, and expected term. These estimates require the input of subjective assumptions, including (i) the expected stock price volatility, (ii) the calculation of the expected term of the award, (iii) the risk-free rate and (iv) expected dividend yields. As there has not been a historic public market for the Companys Common Stock, management has determined the expected stock price volatility at the time of grant of the option by considering a number of objective and subjective factors, including stock price volatility of comparable companies that are publicly available and based on the industry, stage of life cycle, size and financial leverage of such other comparable companies. Management has estimated the expected term of its Common Stock options using the simplified method, whereby, the expected term equals the arithmetic average of the vesting term and the original contractual term of the option due to its lack of sufficient historical data. The risk-free interest rates for periods within the expected term of the option are based on the US Treasury securities with a maturity date that commensurate with the expected term of the associated award. There is no expected dividend yield since the Company has never paid cash dividends and does not expect to pay cash dividends in the foreseeable future. For stock options issued to employees and non-employees where vesting is contingent upon a service period, the fair value of stock-based awards is recognized as compensation expense over the requisite service period, which is defined as the period during which an employee is required to provide service in exchange for an award. The Company uses a straight-line attribution method for all grants that include only a service condition. For stock options issued to employees and non-employees were vesting is contingent upon meeting performance criteria, the fair value of the stock-based awards vests when the performance criteria has been met. The Company accounts for forfeitures when they occur. Stock-based compensation expense recognized in the financial statements is reduced by actual awards forfeited. Net Loss Per Common Share Basic net loss per share excludes the effect of dilution and is computed by dividing the net loss attributable to common shareholders by the weighted-average number of shares of Common Stock outstanding during the period, without consideration of potentially dilutive securities. Diluted net loss per share is computed by dividing the net loss attributable to common shareholders by the weighted-average number of Common Stock and potentially dilutive securities outstanding for the period. For purposes of the diluted net loss per share calculation, convertible preferred stock, stock options, Common Stock subject to repurchase related to early exercise of stock options, convertible stock warrants and convertible notes are considered to be potentially dilutive securities. As the Company has reported a net loss for all periods presented, diluted net loss per common share is the same as basic net loss per common share for those periods. Common Stock Warrants The Company has issued warrants, which allow the warrant holder to purchase one share of stock at a specified price for a specified period of time. The Company records equity instruments including warrants based on the fair value at the date of issue. The fair value of warrants classified as equity instruments at the date of issuance is estimated using the Black-Scholes model and is recorded to additional paid-in-capital. Revenue Recognition In accordance with ASC 606, Revenue from Contracts with Customers, revenue is recognized when a customer obtains control of promised goods or services. The guidance focuses on the core principle for revenue recognition, which is that an entity should recognize revenue to depict the transfer of promised goods or services to customers in an amount that reflects the consideration to which the entity expects to be entitled in exchange for those goods or services. The Company recognizes revenue in accordance with ASC 606, which provides a five-step model for recognizing revenue from contracts with customers as follows:  Step 1: Identify the contract(s) with a customer  Step 2: Identify the performance obligations in the contract  Step 3: Determine the transaction price  Step 4: Allocate the transaction price to the performance obligations in the contract  Step 5: Recognize revenue when (or as) the entity satisfies a performance obligation A contract with a customer exists when (i) the Company enters into a legally enforceable contract with a customer, through a purchase order, that defines each partys rights regarding the products to be transferred and identifies the payment terms related to these products, (ii) the contract has commercial substance and, (iii) the Company determines that collection of substantially all consideration for products that are transferred is probable based on the customers intent and ability to pay the promised consideration. The only performance obligation is to create and ship the product and each product has separate, distinct pricing. Performance obligations are met and revenue is recognized at a point in time when the order for its goods are shipped FOB manufacturer and control is transferred. The transaction price is determined based on the amount expected to be entitled to in exchange for transferring the product to the customer net of any transaction price adjustments. The Companys payment terms to customers generally range from 30 to 60 days. Payment terms fall within the one-year guidance for the practical expedient which allows the Company to forgo adjustment of the promised amount of consideration for the effects of a significant financing component. The Company accepts product returns at its discretion or if the product is defective as manufactured. Historically, the actual product returns have been immaterial to the Companys financial statements. The Company elected to treat shipping and handling costs as a fulfillment cost and included them in the cost of goods sold as incurred. Costs associated with product sales include commissions. The Company applies the practical expedient and recognizes commissions as expense when incurred because the expense is incurred at a point in time and the amortization period is less than one year. Commissions are recorded as selling expense. The Company did not recognize material revenues during the three and nine month periods ended January 31, 2024 and 2023. The Companys revenues do not require significant estimates or judgments. The Company is not a party to contracts that include multiple performance obligations or material variable consideration. As of January 31, 2024 and April 30, 2023, the Company did no t have any contract assets or liabilities from contracts with customers and there were no remaining performance obligations that the Company had not satisfied. Income Taxes The Company accounts for income taxes under the asset and liability method, which requires recognition of deferred tax assets, subject to valuation allowances, and liabilities for the expected future tax consequences of events that have been included in the financial statements or tax returns. Deferred income taxes reflect the net tax effect of temporary differences between the carrying amounts of assets and liabilities for financial reporting and income tax purposes. Management considers many factors when assessing the likelihood of future realization of deferred tax assets, including recent cumulative experience by taxing jurisdiction, expectations of future taxable income or loss, the carry-forward periods available to the Company for tax reporting purposes, and other relevant factors. A valuation allowance is established if it is more likely than not that all or a portion of the net deferred tax assets will not be realized. Accruals for uncertain tax positions are provided for in accordance with applicable accounting standards. The Company may recognize the tax benefits from an uncertain tax position only if it is more likely than not that the tax position will be sustained on examination by the taxing authorities, based on the technical merits of the position. The tax benefits recognized in the financial statements from such a position are measured based on the largest benefit that has a greater than 50% likelihood of being realized upon ultimate settlement. Judgment is required in assessing the future tax consequences of events that have been recognized in the financial statements or tax returns. Based on its analysis, management has determined that it has not incurred any liability for unrecognized tax benefits as of January 31, 2024 and April 30, 2023. The Company may be subject to potential examination by U.S. federal, U.S. states or foreign jurisdiction authorities in the areas of income taxes. These potential examinations may include questioning the timing and amount of deductions, the nexus of income among various tax jurisdictions and compliance with U.S. federal, U.S. state and foreign tax laws. The Company is subject to income taxes in the U.S. federal jurisdiction and franchise taxes in the State of Texas. Tax regulations within each jurisdiction are subject to the interpretation of the related tax laws and regulations and require significant judgment to apply. Generally, the Company is no longer subject to income tax examinations by major taxing authorities for years before 2018."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q012",
+    "nr_data": 5,
+    "base_nl_query": "Are there any negative values reported in 2022 for the filing with adsh '0001628280-24-013372 associated to stockholders?'",
+    "app_nl_query": "Are there any negative values reported in 2022 associated to stockholders?'",
+    "sql_ground_truth": "SELECT tag, ddate, value FROM NUM WHERE adsh = '0001628280-24-013372'   AND ddate BETWEEN 20220101 AND 20221231   AND value < 0   AND (tag LIKE '%Stockholders%' OR tag = 'RetainedEarningsAccumulatedDeficit');",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_8bf0330b494082646171c17b53e91cc3b2b8da691d7003eda50fd0e67e5b94f1"
+        ],
+        {
+          "tag": "NetIncomeLossAvailableToCommonStockholdersBasic",
+          "ddate": "20221231",
+          "value": -19481602.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_73cce088fae2b54444f888b7944a0557b41a2136f45cf77c16b3c897c780256f"
+        ],
+        {
+          "tag": "RetainedEarningsAccumulatedDeficit",
+          "ddate": "20221231",
+          "value": -66737765.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_82e9f86f72d2c022442e56c63b5d1f3b42aa84e642952dc903078e119cdd3aca"
+        ],
+        {
+          "tag": "StockholdersEquity",
+          "ddate": "20221231",
+          "value": -3008054.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_82e9f86f72d2c022442e56c63b5d1f3b42aa84e642952dc903078e119cdd3aca"
+        ],
+        {
+          "tag": "StockholdersEquity",
+          "ddate": "20221231",
+          "value": -3008054.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_6d81d0a440f2f807b90a9481b4a6447d86c66761d3bc01a86e1bb38b3e1ce9de"
+        ],
+        {
+          "tag": "StockholdersEquity",
+          "ddate": "20221231",
+          "value": -66737765.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q013",
+    "nr_data": 1,
+    "base_nl_query": "What's the address of the submitting entity of filing 0000927653-24-000018",
+    "app_nl_query": "What's the address of the submitting entity?",
+    "sql_ground_truth": "SELECT s.countryba, s.stprba, s.cityba, s.zipba, s.bas1,        addr.value, city.value,        zip.value, state.value, country.value FROM SUB s LEFT JOIN TXT addr ON addr.adsh = s.adsh AND addr.tag = 'EntityAddressAddressLine1' LEFT JOIN TXT city ON city.adsh = s.adsh AND city.tag = 'EntityAddressCityOrTown' LEFT JOIN TXT zip ON zip.adsh = s.adsh AND zip.tag = 'EntityAddressPostalZipCode' LEFT JOIN TXT state ON state.adsh = s.adsh AND state.tag = 'EntityAddressStateOrProvince' LEFT JOIN TXT country ON country.adsh = s.adsh AND country.tag = 'EntityIncorporationStateCountryCode' WHERE s.adsh='0000927653-24-000018'",
+    "ground_truth": [
+      [
+        [
+          "SUB_TXT_TXT_TXT_TXT_TXT",
+          "no_pk_f6443f36e89101f8fea98177ba3990fb7d9390e038ffc044a2bcd53be8b13f56"
+        ],
+        {
+          "countryba": "US",
+          "stprba": "TX",
+          "cityba": "IRVING",
+          "zipba": "75039",
+          "bas1": "6555 STATE HIGHWAY 161",
+          "value": "DE"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q014",
+    "nr_data": 1,
+    "base_nl_query": "What accounting standard version does the filing 0000950170-24-037962 use in the text disclosures in 2018?",
+    "app_nl_query": "What accounting standard version does the filing use in the text disclosures in 2018?",
+    "sql_ground_truth": "SELECT ddate, tag, version, value  FROM TXT WHERE adsh='0000950170-24-037962' AND ddate BETWEEN 20180101 AND 20181231",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_369bb1a23499dc4fac3556b133c2da8ac41bf6012fd305b35dd025805f450c3c"
+        ],
+        {
+          "ddate": "20181231",
+          "tag": "ChangeInAccountingPrincipleAccountingStandardsUpdateAdopted",
+          "version": "us-gaap/2022",
+          "value": "true"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q015",
+    "nr_data": 3,
+    "base_nl_query": "What is the history of gross profit values of filing 0000038725-24-000038?",
+    "app_nl_query": "What is the history of gross profit values?",
+    "sql_ground_truth": "SELECT tag, version, ddate, value, uom FROM NUM WHERE adsh='0000038725-24-000038' AND tag='GrossProfit' ORDER BY ddate ASC",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_d3a9225de918324453ed397298b93dc094e499aee1483bc98768987e40d14653"
+        ],
+        {
+          "tag": "GrossProfit",
+          "version": "us-gaap/2023",
+          "ddate": "20211231",
+          "value": 576089000.0,
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_a8ec5918ad83a337a186d0db9131ec66c9296d1e47feca8b2c85ee81664d5439"
+        ],
+        {
+          "tag": "GrossProfit",
+          "version": "us-gaap/2023",
+          "ddate": "20221231",
+          "value": 691435000.0,
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_0ae13de9f83343efc31b19697cd44edc796d40d873059f64cfad9533703ff23d"
+        ],
+        {
+          "tag": "GrossProfit",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "value": 697008000.0,
+          "uom": "USD"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q016",
+    "nr_data": 1,
+    "base_nl_query": "What does 'ContractWithCustomerLiability' mean, considering it has been used by the filing 0000039311-24-000035?",
+    "app_nl_query": "What does 'ContractWithCustomerLiability' mean?",
+    "sql_ground_truth": "SELECT tag, version, doc FROM TAG  WHERE tag='ContractWithCustomerLiability' and version='us-gaap/2023'",
+    "ground_truth": [
+      [
+        [
+          "TAG",
+          "no_pk_624e321dd2f6073cc34fa6ce674a3e3413038da9cd17f1d555dd865c7f8f9841"
+        ],
+        {
+          "tag": "ContractWithCustomerLiability",
+          "version": "us-gaap/2023",
+          "doc": "Amount of obligation to transfer good or service to customer for which consideration has been received or is receivable."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q017",
+    "nr_data": 17,
+    "base_nl_query": "Are intagible assets reported by the filing 0001058623-24-000025 used in any calculation relationships? Return all the records",
+    "app_nl_query": "Are intagible assets used in any calculation relationships? Return all the records",
+    "sql_ground_truth": "SELECT *  FROM CAL   WHERE adsh='0001058623-24-000025' AND (ctag LIKE '%IntangibleAssets%' OR ptag LIKE '%IntangibleAssets%')",
+    "ground_truth": [
+      [
+        [
+          "CAL",
+          "no_pk_a0b770587d3bd58fb06243e8559020bf0bc71e7293b51d98fbe553d7f03c4a39"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 2.0,
+          "arc": 9.0,
+          "negative": 1.0,
+          "ptag": "Assets",
+          "pversion": "us-gaap/2023",
+          "ctag": "OtherIntangibleAssetsNet",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_497fc906f84351ec52c9bffa79b9868715cf706ae74e332aed8329fdeb11756f"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 12.0,
+          "arc": 12.0,
+          "negative": 1.0,
+          "ptag": "DeferredIncomeTaxLiabilities",
+          "pversion": "us-gaap/2023",
+          "ctag": "DeferredTaxLiabilitiesGoodwillAndIntangibleAssets",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_9a68c35e5fd7eb8a19c9e7a6d2fd3061dfdc156df31cea41cf5741cb8f5ba728"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 13.0,
+          "arc": 9.0,
+          "negative": 1.0,
+          "ptag": "NetCashProvidedByUsedInOperatingActivities",
+          "pversion": "us-gaap/2023",
+          "ctag": "ImpairmentOfIntangibleAssetsFinitelived",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_a37ccfd975efc8344f82b9ca16b6f61e87defa71cf3866715dcf0d8136c2b898"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 18.0,
+          "arc": 9.0,
+          "negative": 1.0,
+          "ptag": "OperatingExpenses",
+          "pversion": "us-gaap/2023",
+          "ctag": "ImpairmentOfIntangibleAssetsExcludingGoodwill",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_e0e5fbff93abbf965e8e168b5de52a45e261a68646dc1c29e98d3f574d893fad"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 9.0,
+          "arc": 4.0,
+          "negative": -1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAccumulatedAmortization",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_3bf0310778e54030302ee7f562ba18d8a1523f3dd9a97c3676581bf25b100023"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 3.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseYearFour",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_8ff0a1d8a2b96587d46db69bfbc7bf3af0a98f866e7d3988b70716d0f51f6d4b"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 1.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseYearThree",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_3fca220ccb61053aabdcdb7f07804af5af8b5137ef1a69bea3f297b04f7adcee"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 2.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseYearTwo",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_035d672cdb4bda844bf423f8236149d18deb0c6c3b78fa6ccad7caf996207432"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 9.0,
+          "arc": 5.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsGross",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_af867915c84384cdb7483e52554d0981d48e74658a8e7c7329f4cf0efb34c852"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 6.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseAfterYearFive",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_a7d084eb00a5304aeadaafeccd8eb83a3f6101627a0e6a577d4d77935ea569b2"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 4.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseNextTwelveMonths",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_28780569a804fc34fc23f23b25df554629c896132a780a408454b0017b27b391"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 14.0,
+          "arc": 5.0,
+          "negative": 1.0,
+          "ptag": "FiniteLivedIntangibleAssetsNet",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAmortizationExpenseYearFive",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_a214ae4f5412148d198a1a9d3bf583f6a50c66d3653550e7f43698c308b7f9dc"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 19.0,
+          "arc": 2.0,
+          "negative": 1.0,
+          "ptag": "IntangibleAssetsNetExcludingGoodwill",
+          "pversion": "us-gaap/2023",
+          "ctag": "IndefiniteLivedIntangibleAssetsNet",
+          "cversion": "0001058623-24-000025"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_7a3bf197cf07d8b7d06e0e7b8e71cd313f950a3387ff6f2e7eda670b9c26d48a"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 9.0,
+          "arc": 2.0,
+          "negative": 1.0,
+          "ptag": "IntangibleAssetsNetExcludingGoodwill",
+          "pversion": "us-gaap/2023",
+          "ctag": "IntangibleAssetsGrossExcludingGoodwill",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_53c0492759071039ab32687f57fb58106c17263a2cd6d62be36dfa96ba051864"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 9.0,
+          "arc": 3.0,
+          "negative": -1.0,
+          "ptag": "IntangibleAssetsNetExcludingGoodwill",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsAccumulatedAmortization",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_ce1c4e0cbf24a5bdcd99cb52bcab3a7217e3de15f7697e6877d6a861c4f9bca1"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 19.0,
+          "arc": 1.0,
+          "negative": 1.0,
+          "ptag": "IntangibleAssetsNetExcludingGoodwill",
+          "pversion": "us-gaap/2023",
+          "ctag": "FiniteLivedIntangibleAssetsNet",
+          "cversion": "us-gaap/2023"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_29c5894e390cfa48d936e455073c24c1cde34a7ca0dfa9ad8f4eca57fd96e4c3"
+        ],
+        {
+          "adsh": "0001058623-24-000025",
+          "grp": 9.0,
+          "arc": 1.0,
+          "negative": 1.0,
+          "ptag": "IndefiniteLivedIntangibleAssetsNet",
+          "pversion": "0001058623-24-000025",
+          "ctag": "IndefiniteLivedIntangibleAssetsExcludingGoodwill",
+          "cversion": "us-gaap/2023"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q018",
+    "nr_data": 15,
+    "base_nl_query": "Show the presentation characteristics of the balance sheet section of the filing 0001999371-24-003926",
+    "app_nl_query": "Show the presentation characteristics of the balance sheet section",
+    "sql_ground_truth": "SELECT *  FROM PRE  WHERE adsh='0001999371-24-003926'  AND stmt='BS'",
+    "ground_truth": [
+      [
+        [
+          "PRE",
+          "no_pk_56e8dc900a557206001646e8ff519fc8eb35db88f522b35804f16b4ceff3c461"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 4.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "Assets",
+          "version": "ifrs/2023",
+          "prole": "totalLabel",
+          "plabel": "Total assets",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_ab68a4c2e625684dbf4efedf7c145e3c01c28ba0ea55da5870de7e5632225d69"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 2.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "Cash",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Cash",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_3ef9872b2995b54523bd0c6bc2a34a8ef3199c7e6f3f14c75a8e2951dca06133"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 1.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "CurrentAssetsAbstract",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Assets",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_d0c5df8720d24c3053f890a153a107fb402db7a36e82e56f3b6b27b0ddd57a0c"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 5.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "CurrentLiabilitiesAbstract",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Liabilities",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_0d5c4ec101e2515dcd8d301ac5f6be2beb7b49ae8623b1624ea62c171b0f9234"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 13.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "Equity",
+          "version": "ifrs/2023",
+          "prole": "totalLabel",
+          "plabel": "Total equity (note 7)",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_41c18d03714bc25061596af49d9418c23e70c2eae19c684ed1feb9e1679c0e49"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 8.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "EquityAbstract",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Equity",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_f40459a860d718ff80e85ed85856e57920206e5d63fe286e1e43a931d4de38d3"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 14.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "EquityAndLiabilities",
+          "version": "ifrs/2023",
+          "prole": "totalLabel",
+          "plabel": "Total liabilities and equity",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_a284f8b08fe5d24d6045e4d3f664c5a2c6700a6b269774c8ab3e03768d2e9b76"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 9.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "IssuedCapital",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Unitholders capital",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_6237b6433294af32cd3c12cc5fd4ae75f0c4a496f33d20ffd7c8583c996f63e7"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 7.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "Liabilities",
+          "version": "ifrs/2023",
+          "prole": "totalLabel",
+          "plabel": "Total liabilities",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_3e39998fd516571704e0adf629e30af71a27ca99bacff7d2e28aad27fd3c6870"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 11.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "RetainedEarnings",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Retained earnings (deficit)",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_63c019fe137f1c316518badfa8916034c61acbe2ebc9eea4438c11bdfe9e238b"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 6.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "TradeAndOtherCurrentPayables",
+          "version": "ifrs/2023",
+          "prole": "label",
+          "plabel": "Accounts payable",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_88be1c9fa25268f40b2154df072a8f4bba9321099136c1758a7dde8a3c48bc22"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 3.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "CurrentGoldBullionAssets",
+          "version": "0001999371-24-003926",
+          "prole": "label",
+          "plabel": "Gold bullion (note 6)",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_273c4d0c3235328daf9522f3029bd8f6905b7e608b9a5386d40b6aa9aaf6a688"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 15.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "EquityPerUnit",
+          "version": "0001999371-24-003926",
+          "prole": "label",
+          "plabel": "Total equity per Unit",
+          "negating": 0.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_bb04c4ac4937eafbe4cb5a1eba2fb450d1468e8674b4ae44fd8a6f1bfefe6d0e"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 12.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "IfrsOtherOwnershipInterestsOfferingCosts",
+          "version": "0001999371-24-003926",
+          "prole": "negatedLabel",
+          "plabel": "Underwriting commissions and issue expenses",
+          "negating": 1.0
+        }
+      ],
+      [
+        [
+          "PRE",
+          "no_pk_04728ee4bb353b77a58372085ff097ddb6559bc8dc6e67446e481b2511289237"
+        ],
+        {
+          "adsh": "0001999371-24-003926",
+          "report": 3.0,
+          "line": 10.0,
+          "stmt": "BS",
+          "inpth": 0.0,
+          "tag": "UnitPremiumsAndReserves",
+          "version": "0001999371-24-003926",
+          "prole": "label",
+          "plabel": "Unit premiums and reserves",
+          "negating": 0.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q019",
+    "nr_data": 2,
+    "base_nl_query": "How much cash did the company have available for this filing 0002008589-24-000010?",
+    "app_nl_query": "How much cash did the company have available for this filing?",
+    "sql_ground_truth": "WITH chronological_cash AS ( SELECT tag, version, ddate, iprx, value, uom FROM NUM  WHERE adsh='0002008589-24-000010'  AND tag='Cash' ORDER BY ddate DESC, iprx DESC   LIMIT 1 ) SELECT tag, version, ddate, value, uom FROM chronological_cash  UNION ALL  SELECT tag, version, ddate, value, NULL as uom FROM TXT WHERE adsh='0002008589-24-000010' AND tag='CashAndCashEquivalentsPolicyTextBlock'",
+    "ground_truth": [
+      [
+        [
+          "chronological_cash",
+          "no_pk_4e5c9434b432b2f0e57be7cbdee90d6992844bfe59a38d4cbb85a8447e8a1d84"
+        ],
+        {
+          "tag": "Cash",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "value": 44165.0,
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "chronological_cash",
+          "no_pk_0413d9e3bf62cf67b748aa482fe1f971182da32e9c5346d3b41ba01cab11cb68"
+        ],
+        {
+          "tag": "CashAndCashEquivalentsPolicyTextBlock",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "value": "Cash and Cash Equivalents The Company considers all short-term investments with an original maturity of three months or less when purchased to be cash equivalents. The Company had $ 44,165 and $ 377,526 of cash as of December 31, 2023 and 2022, respectively, and no cash equivalents.",
+          "uom": null
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q020",
+    "nr_data": 1,
+    "base_nl_query": "Who was the auditor of Dakota Gold Corp in 2023 (filing 0001062993-24-007319)",
+    "app_nl_query": "Who was the auditor of Dakota Gold Corp in 2023?",
+    "sql_ground_truth": "SELECT tag, value, ddate FROM TXT WHERE adsh = '0001062993-24-007319' AND tag = 'AuditorName'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_4049499a5ad931a08c429d450612112b8277455732f5730d3718f7996f09080d"
+        ],
+        {
+          "tag": "AuditorName",
+          "value": "Ernst & Young LLP",
+          "ddate": "20231231"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q021",
+    "nr_data": 1,
+    "base_nl_query": "Is the filing 0001477932-24-001283 an annual non-foreign report?",
+    "app_nl_query": "Is the filing an annual non-foreign report?",
+    "sql_ground_truth": "SELECT s.form, t.tag, t.value FROM SUB s LEFT JOIN TXT t ON t.adsh = s.adsh AND t.tag = 'DocumentAnnualReport' WHERE s.adsh='0001477932-24-001283'  AND s.form='10-K'",
+    "ground_truth": [
+      [
+        [
+          "SUB_TXT",
+          "no_pk_1dd0a6cfc665f68029302835fc2d7fc8b874233d962d9faadd55e125d7733fba"
+        ],
+        {
+          "form": "10-K",
+          "tag": "DocumentAnnualReport",
+          "value": "true"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q022",
+    "nr_data": 1,
+    "base_nl_query": "Show where in the statement the current prepaid expense is presented in the filing 0000002969-24-000010",
+    "app_nl_query": "Show where in the statement the current prepaid expense is presented",
+    "sql_ground_truth": "SELECT tag, version, plabel, line, stmt FROM PRE  WHERE adsh='0000002969-24-000010' AND tag='PrepaidExpenseCurrent'  AND stmt='BS'",
+    "ground_truth": [
+      [
+        [
+          "PRE",
+          "no_pk_ddb863e7450b99c7ca8dd2555a0c0ef1afb610202539341414c29d8db8d311d3"
+        ],
+        {
+          "tag": "PrepaidExpenseCurrent",
+          "version": "us-gaap/2023",
+          "plabel": "Prepaid expenses",
+          "line": 13.0,
+          "stmt": "BS"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q023",
+    "nr_data": 4,
+    "base_nl_query": "For the filing 0001477932-24-001599, show the components of the current Assets",
+    "app_nl_query": "Show the components of the current Assets",
+    "sql_ground_truth": "SELECT ctag FROM CAL WHERE adsh='0001477932-24-001599' AND ptag='CurrentAssets'",
+    "ground_truth": [
+      [
+        [
+          "CAL",
+          "no_pk_62e8ae644cb2e5ff21e056e55c151693781635cd27a419f0613797a6f6a80c2f"
+        ],
+        {
+          "ctag": "Inventories"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_0c3d248638103f4d98358930604c4173a8837d93bb9e7c268f88ef40ba404672"
+        ],
+        {
+          "ctag": "CurrentPrepaidExpenses"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_acc2a5bd85095a10fe664fe0ce17951704215b6c0f65e8280b358aa931a0b36c"
+        ],
+        {
+          "ctag": "CashAndCashEquivalents"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_a7ac0f823da2d9d8f2eb42160257062dae8959659c781d7baf049664a7bac46d"
+        ],
+        {
+          "ctag": "TradeAndOtherCurrentReceivables"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q024",
+    "nr_data": 6,
+    "base_nl_query": "Which custom financial tags are presented in this filing? (adsh 0001104659-24-033311)",
+    "app_nl_query": "Which custom financial tags are presented in this filing?",
+    "sql_ground_truth": "SELECT DISTINCT t.tag, t.version, t.doc, t.custom FROM TAG t WHERE t.custom=1 AND (     t.tag IN (SELECT DISTINCT tag FROM NUM WHERE adsh='0001104659-24-033311')     OR     t.tag IN (SELECT DISTINCT tag FROM TXT WHERE adsh='0001104659-24-033311') ) ORDER BY t.tag",
+    "ground_truth": [
+      [
+        [
+          "TAG",
+          "no_pk_fa801f2909e365bf434c52353641c6e0397e99ca927aa877c34744281a664d7c"
+        ],
+        {
+          "tag": "CashFlowPerformanceStockUnitsPeriodEnded2023",
+          "version": "0001104659-24-033311",
+          "doc": "It represents the percentage of cash flow performance stock units period ended 2023.",
+          "custom": 1.0
+        }
+      ],
+      [
+        [
+          "TAG",
+          "no_pk_b5a98d7bb2d83f611bdc76a0615b87cd5a0a4b972ff525c9aa6bbfff27fcb0bd"
+        ],
+        {
+          "tag": "CashFlowPerformanceStockUnitsPeriodEnded2024",
+          "version": "0001104659-24-033311",
+          "doc": "It represents the percentage of cash flow performance stock units period ended 2024.",
+          "custom": 1.0
+        }
+      ],
+      [
+        [
+          "TAG",
+          "no_pk_28e15e5225958d5cb0d611b9d8bae8e480e62561e1e92d42b07bee7648673177"
+        ],
+        {
+          "tag": "CashFlowPerformanceStockUnitsPeriodEnded2025",
+          "version": "0001104659-24-033311",
+          "doc": "It represents the percentage of cash flow performance stock units period ended 2025.",
+          "custom": 1.0
+        }
+      ],
+      [
+        [
+          "TAG",
+          "no_pk_2d72d606750f1c880fa290bbdadd10b0d7b7dc157cd85e1a7a31ca0dc8a36958"
+        ],
+        {
+          "tag": "MeasureName",
+          "version": "0000799233-24-000012",
+          "doc": "Measure Name",
+          "custom": 1.0
+        }
+      ],
+      [
+        [
+          "TAG",
+          "no_pk_8dd8c8df06ee6fb92d383a31193f35bd76f6069e00cee362e34fdcd2b3d61f01"
+        ],
+        {
+          "tag": "NetIncomeLoss",
+          "version": "0001477932-24-001599",
+          "doc": "The portion of profit or loss for the period, net of income taxes, which is attributable to the parent.",
+          "custom": 1.0
+        }
+      ],
+      [
+        [
+          "TAG",
+          "no_pk_4a42eaac9af5795fff5d8a9bd1dc1774582939b8c5b23ac5cf6285fa2411a39f"
+        ],
+        {
+          "tag": "NetIncomeLoss",
+          "version": "0001654954-24-002404",
+          "doc": "The portion of profit or loss for the period, net of income taxes, which is attributable to the parent.",
+          "custom": 1.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q025",
+    "nr_data": 1,
+    "base_nl_query": "Given the filing 0000002969-24-000010, explain the balance sheet called 'AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment'",
+    "app_nl_query": "Explain the balance sheet called 'AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment'",
+    "sql_ground_truth": "SELECT tag, version, tlabel, doc FROM TAG WHERE tag='AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment' AND version='us-gaap/2023'",
+    "ground_truth": [
+      [
+        [
+          "TAG",
+          "no_pk_90f0636aa4bad844ae917c93b340c0ad54072c917547f0963d8dd508220f3dc7"
+        ],
+        {
+          "tag": "AccumulatedDepreciationDepletionAndAmortizationPropertyPlantAndEquipment",
+          "version": "us-gaap/2023",
+          "tlabel": "Accumulated Depreciation, Depletion and Amortization, Property, Plant, and Equipment",
+          "doc": "Amount of accumulated depreciation, depletion and amortization for physical assets used in the normal conduct of business to produce goods and services."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q026",
+    "nr_data": 3,
+    "base_nl_query": "Considering the filing 0001104659-24-034403, is there any numerical information about occupancy costs after all the expenses?",
+    "app_nl_query": "Is there any numerical information about occupancy costs after all the expenses?",
+    "sql_ground_truth": "SELECT tag, ddate, value, uom FROM NUM WHERE adsh='0001104659-24-034403' AND tag='OccupancyNet'",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_56723b9d8ef4f07430a238001651ea0d003b3327e4f24cf7affe804b78b41ddd"
+        ],
+        {
+          "tag": "OccupancyNet",
+          "ddate": "20211231",
+          "value": 9108000.0,
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e20577ccbaa812911f529bc3761129093d70af15bf5c0ed3f55a2f84204c2132"
+        ],
+        {
+          "tag": "OccupancyNet",
+          "ddate": "20221231",
+          "value": 8657000.0,
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_cc2bcf114af2a72b9725c4d261bce776101ac80f05383f09e410196459994b5d"
+        ],
+        {
+          "tag": "OccupancyNet",
+          "ddate": "20231231",
+          "value": 8369000.0,
+          "uom": "USD"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q027",
+    "nr_data": 5,
+    "base_nl_query": "Considering the filing 0000796343-24-000065, what were the latest figures in terms of subscription revenue?",
+    "app_nl_query": "What were the latest figures in terms of subscription revenue?",
+    "sql_ground_truth": "SELECT tag, ddate, qtrs, uom, value FROM NUM WHERE tag = 'SubscriptionRevenue' AND adsh='0000796343-24-000065' AND ddate = 20240229",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_e79cfecd90f7821e8e9c4cf5ec25aad8e12a663af043d7966694143c6664d0f1"
+        ],
+        {
+          "tag": "SubscriptionRevenue",
+          "ddate": "20240229",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 4916000000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e79cfecd90f7821e8e9c4cf5ec25aad8e12a663af043d7966694143c6664d0f1"
+        ],
+        {
+          "tag": "SubscriptionRevenue",
+          "ddate": "20240229",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 4916000000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_f271c3e0d22a6a345ba3586607557f2933f850b2f4d3d0ffbb024ea989037c22"
+        ],
+        {
+          "tag": "SubscriptionRevenue",
+          "ddate": "20240229",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 1164000000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_e7891cefd447dcb20d633105ff47b1e8099be94d56f465224c9e5a7c89ee05a5"
+        ],
+        {
+          "tag": "SubscriptionRevenue",
+          "ddate": "20240229",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 3725000000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_961bced6b36aa37378815f6be56a776cb5d62d1aff14686e78dd5a30f13bd5b4"
+        ],
+        {
+          "tag": "SubscriptionRevenue",
+          "ddate": "20240229",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 27000000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q028",
+    "nr_data": 4,
+    "base_nl_query": "Considering the filing 0001213900-24-014627, what are the components of its non-operating income expense?",
+    "app_nl_query": "What are the components of its non-operating income expense?",
+    "sql_ground_truth": "SELECT ctag FROM CAL WHERE adsh='0001213900-24-014627' AND ptag='NonoperatingIncomeExpense'",
+    "ground_truth": [
+      [
+        [
+          "CAL",
+          "no_pk_9cde932cb9136359ef580b592bb81163f891f686729c426ed412438df6197cfe"
+        ],
+        {
+          "ctag": "OtherNonoperatingIncomeExpense"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_1bdcc91851f0c54e4507bac6c1d20c4c68b61cb618805df4e7fc00f01d885884"
+        ],
+        {
+          "ctag": "InterestExpense"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_006553e3c5ee0e36c47c452e6850faca04993c66369770897a187ca99b419917"
+        ],
+        {
+          "ctag": "InvestmentIncomeInterest"
+        }
+      ],
+      [
+        [
+          "CAL",
+          "no_pk_9756c6b4722db3b4a5c592bed892193bfbe837b671bbc6de3fbf5b456789f8bd"
+        ],
+        {
+          "ctag": "GainLossOnSaleOfPropertyPlantEquipment"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q029",
+    "nr_data": 2,
+    "base_nl_query": "Are there any credit risk factors mentioned in the filing 0000950170-24-031460?",
+    "app_nl_query": "Are there any credit risk factors mentioned?",
+    "sql_ground_truth": "SELECT txt.tag, txt.version, txt.ddate, txt.qtrs, txt.iprx, txt.value, NULL AS tlabel, NULL AS doc FROM TXT AS txt  WHERE txt.adsh='0000950170-24-031460'  AND txt.tag='ConcentrationRiskCreditRisk' AND txt.version='us-gaap/2023' AND txt.ddate=20231231 AND txt.qtrs=4 AND txt.iprx=0  UNION ALL  SELECT t.tag, t.version, NULL AS ddate, NULL AS qtrs, NULL AS iprx, NULL AS value, t.tlabel, t.doc FROM TAG AS t WHERE t.tag='ConcentrationRiskCreditRisk' AND t.version='us-gaap/2023'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_28e7283491476a8b6f309ba681e7e53023482a3242d680df549fcb739fde1cee"
+        ],
+        {
+          "tag": "ConcentrationRiskCreditRisk",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "iprx": 0.0,
+          "value": "Concentrations of Credit Risk and Trade Receivables The Companys financial instruments that are exposed to concentrations of credit risk consist primarily of cash and cash equivalents and trade accounts receivable. From time to time, the Company has had, and may have, bank deposits in excess of Federal Deposit Insurance Corporation (\"FDIC\") insurance limits. As of December 31, 2023, the majority of all U.S. deposits are maintained in two financial institutions. The Company has not experienced any losses in such accounts and believes that it is not exposed to significant credit risk on cash and cash equivalents. In addition, to the Company's knowledge, all of the bank deposits held in banks outside the United States are not insured. The Companys credit risk is spread across a large number of customers in the United States, Latin America, Asia and various other countries, therefore spreading the trade receivable credit risk. The Company routinely assesses the financial strength of its customers and, as a consequence, believes that it is managing its trade receivable credit risk effectively. Trade receivables are carried at original invoice amount less an estimate made for doubtful receivables based on a review of all outstanding amounts on a monthly basis. An allowance for doubtful accounts is provided for known and anticipated credit losses, as determined by management in the course of regularly evaluating individual customer receivables. This evaluation takes into consideration a customers financial condition and credit history, as well as current economic conditions. Trade receivables are written off when deemed uncollectible. Recoveries of trade receivables previously written off are recorded when received. No interest is charged on customer accounts. Aggregate receivables from the largest five advertisers represented 7 % and 2 % of the Company's total trade receivables as of December 31, 2023 and 2022, respectively. No single advertiser represents more than 5% of the total trade receivables. Revenue from the largest advertiser represented 13 %, 14 % and 13 % of the Company's total revenue for the years ended December 31, 2023, 2022 and 2021, respectively. This advertiser is a global media company and pays on a frequent basis; therefore, management does not believe that this concentration of credit represents a significant risk to the Company. No other advertiser represented more than 5% of the Company's total revenue. E stimated losses for bad debts are provided for in the consolidated financial statements through a charge to expense that aggregated $ 2.2 million, $ 3.4 million and $ 3.5 million for the years ended December 31, 2023, 2022 and 2021, respectively. The net charge off of bad debts aggregated $ 3.1 million, $ 3.3 million and $ 0.9 million for the years ended December 31, 2023, 2022 and 2021, respectively. Allowance for Doubtful Accounts Our accounts receivable consist of a homogeneous pool of relatively small dollar amounts from a large number of customers. We evaluate the collectability of our trade accounts receivable based on a number of factors. When we are aware of a specific customers inability to meet its financial obligations to us, a specific reserve for bad debts is estimated and recorded which reduces the recognized receivable to the estimated amount we believe will ultimately be collected. In addition to specific customer identification of potential bad debts, bad debt charges are recorded based on our recent past loss history and an overall assessment of past due trade accounts receivable amounts outstanding.",
+          "tlabel": null,
+          "doc": null
+        }
+      ],
+      [
+        [
+          "TXT",
+          "no_pk_3d362e2ad29341a25d0644713a15c126cd1bd5ff46df94081fd999b1ef1f465c"
+        ],
+        {
+          "tag": "ConcentrationRiskCreditRisk",
+          "version": "us-gaap/2023",
+          "ddate": null,
+          "qtrs": null,
+          "iprx": null,
+          "value": null,
+          "tlabel": "Cash and concentrations of credit risk",
+          "doc": "Disclosure of accounting policy for credit risk."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q030",
+    "nr_data": 1,
+    "base_nl_query": "For the filing 0001654954-24-003873, what is the reporting date?",
+    "app_nl_query": "What is the reporting date?",
+    "sql_ground_truth": "SELECT period, FY, filed, accepted FROM SUB WHERE adsh='0001654954-24-003873'",
+    "ground_truth": [
+      [
+        [
+          "SUB",
+          "no_pk_a86d22b01b4d972732ff7072e1ef725375c95d1152faf4b0ca7d283a3e317378"
+        ],
+        {
+          "period": "20231231",
+          "fy": "2023",
+          "filed": "20240328",
+          "accepted": "2024-03-28 16:39:00.0"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q031",
+    "nr_data": 4,
+    "base_nl_query": "Check if the filing 0000002178-24-000035 has negative revenues in 2023",
+    "app_nl_query": "Check if the filing has negative revenues in 2023",
+    "sql_ground_truth": "SELECT ddate, value  FROM NUM  WHERE adsh='0000002178-24-000035'  AND tag='Revenues'  AND value < 0  AND ddate BETWEEN 20230101 AND 20231231",
+    "ground_truth": [
+      [
+        [
+          "NUM",
+          "no_pk_36851ff3c1b09b564a7edadd242d5063471f2aead81cdb4149861d72e39994cd"
+        ],
+        {
+          "ddate": "20231231",
+          "value": -410000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_ea854abe50bd9100eabe49b6eaaa9ee286b5b19f870be1df860ecefcf6811a7b"
+        ],
+        {
+          "ddate": "20231231",
+          "value": -8018000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_0c329a268a0a45a8f3cf0eeefd0850f8be33c5cc3eefc409e09dc2b478abbdc3"
+        ],
+        {
+          "ddate": "20231231",
+          "value": -4664000.0
+        }
+      ],
+      [
+        [
+          "NUM",
+          "no_pk_6063159d8edbb4b05a61aa68af86c0bb5c4d2f9ee009587a6a9737d0fae409a1"
+        ],
+        {
+          "ddate": "20231231",
+          "value": -2944000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q032",
+    "nr_data": 1,
+    "base_nl_query": "Considering the filing 0000072903-24-000034, is there an explanation provided for the tag 'TradeAndOtherAccountsReceivablePolicy' of version gaap 2023?",
+    "app_nl_query": "Is there an explanation provided for the tag 'TradeAndOtherAccountsReceivablePolicy' of version gaap 2023?",
+    "sql_ground_truth": "SELECT tag, version, ddate, value  FROM TXT WHERE adsh='0000072903-24-000034' AND tag='TradeAndOtherAccountsReceivablePolicy'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_c5ec7befd264b710ae56cb0a5d6ce7a19783d4b78ba8e105221ff3c41d7010ed"
+        ],
+        {
+          "tag": "TradeAndOtherAccountsReceivablePolicy",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "value": "Accounts Receivable and Allowance for Bad Debts  Accounts receivable are stated at the actual billed amount net of an allowance for bad debts. Xcel Energy establishes an allowance for uncollectible receivables based on a policy that reflects its expected exposure to the credit risk of customers. As of Dec. 31, 2023 and 2022, the allowance for bad debts was $128 million and $122 million, respectively."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q033",
+    "nr_data": 3,
+    "base_nl_query": "What is the total amount DELTA (adsh 0000027904-24-000003) has spent purchasing airline capacity in recent years?",
+    "app_nl_query": "What is the total amount DELTA has spent purchasing airline capacity in recent years?",
+    "sql_ground_truth": "SELECT n.adsh, n.tag, n.version, n.ddate, n.qtrs, n.uom, n.value  FROM num n WHERE n.adsh = '0000027904-24-000003' AND n.tag = 'AirlineCapacityPurchaseArrangements'",
+    "ground_truth": [
+      [
+        [
+          "num",
+          "no_pk_1994c0adc7e82c5c8e355f5d6ad61211c47477020bf1de52a9f134cd0300818f"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "AirlineCapacityPurchaseArrangements",
+          "version": "us-gaap/2023",
+          "ddate": "20211231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 1736000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_51a8391b51149409e036853f49164aba2be0db7fecbae1ae9e9d43ba4e96abea"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "AirlineCapacityPurchaseArrangements",
+          "version": "us-gaap/2023",
+          "ddate": "20221231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 2051000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_72378ee97f601b5dd2189661dd4f064eea0bcc45796dc60942a388dc476714af"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "AirlineCapacityPurchaseArrangements",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 2200000000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q034",
+    "nr_data": 2,
+    "base_nl_query": "How many planes did DELTA (adsh 0000027904-24-000003) rent in 2023 and for what cost?",
+    "app_nl_query": "How many planes did DELTA rent in 2023 and for what cost?",
+    "sql_ground_truth": "SELECT n.tag, n.version, n.ddate, n.uom, n.value  FROM num n WHERE n.adsh = '0000027904-24-000003' AND n.ddate = 20231231 AND n.tag = 'AircraftRental'  UNION ALL  SELECT n.tag, n.version, n.ddate, n.uom, n.value  FROM num n  WHERE n.adsh = '0000027904-24-000003' AND n.ddate = 20231231 AND n.tag = 'LeaseComponentOfPurchaseAgreementsNumberOfAircraft'",
+    "ground_truth": [
+      [
+        [
+          "num",
+          "no_pk_c85eb005ba07383f4398122706af814e8e2c24047e710e2d19eedf6c5150fae3"
+        ],
+        {
+          "tag": "AircraftRental",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "uom": "USD",
+          "value": 532000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_4276c8b1362a00c42b1dc91cade48c005bb4990483acd8d3f0c5972093e8e6b0"
+        ],
+        {
+          "tag": "LeaseComponentOfPurchaseAgreementsNumberOfAircraft",
+          "version": "0000027904-24-000003",
+          "ddate": "20231231",
+          "uom": "aircraft",
+          "value": 116.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q035",
+    "nr_data": 3,
+    "base_nl_query": "How much capital does DELTA (adsh 0000027904-24-000003) normally dedicate to aircraft repairs?",
+    "app_nl_query": "How much capital does DELTA normally dedicate to aircraft repairs?",
+    "sql_ground_truth": "SELECT  n.tag, n.version, n.ddate, n.uom, n.value  FROM num n  WHERE n.adsh = '0000027904-24-000003' AND n.tag = 'AircraftMaintenanceMaterialsAndRepairs'",
+    "ground_truth": [
+      [
+        [
+          "num",
+          "no_pk_de2e946b9c9e07a9974fbdbd69a5296877ca162cbeacb1d2eca537e334f47bb4"
+        ],
+        {
+          "tag": "AircraftMaintenanceMaterialsAndRepairs",
+          "version": "us-gaap/2023",
+          "ddate": "20211231",
+          "uom": "USD",
+          "value": 1401000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_34fc73091ed0d6844edf9fbf3f0c9438b828db18a5dcd4fe26898672fd5595e7"
+        ],
+        {
+          "tag": "AircraftMaintenanceMaterialsAndRepairs",
+          "version": "us-gaap/2023",
+          "ddate": "20221231",
+          "uom": "USD",
+          "value": 1982000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_38172ad66b62f001912bc89dc7545862ca00ea14e71eb504be42da81e66f94e1"
+        ],
+        {
+          "tag": "AircraftMaintenanceMaterialsAndRepairs",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "uom": "USD",
+          "value": 2432000000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q036",
+    "nr_data": 4,
+    "base_nl_query": "What was the revenue brought in by DELTA's (adsh 0000027904-24-000003) loyalty program over the last 3 years?",
+    "app_nl_query": "What was the revenue brought in by the loyalty program over the last 3 years?",
+    "sql_ground_truth": "SELECT n.adsh, n.tag, n.version, n.ddate, n.qtrs, n.uom, n.value  FROM num n JOIN sub s ON n.adsh = s.adsh  WHERE s.adsh = '0000027904-24-000003' AND s.form = '10-K' AND s.fy = 2023 AND n.tag IN ('SalesOfMileageCredits')  UNION ALL  SELECT t.adsh, t.tag, t.version, t.ddate, t.qtrs, NULL as uom, t.value FROM txt t WHERE t.adsh = '0000027904-24-000003' AND t.tag = 'DisaggregationOfRevenueTableTextBlock'",
+    "ground_truth": [
+      [
+        [
+          "num_sub",
+          "no_pk_bd3d2cb632d3c134da658eff4c63ac2f74c5df726663e2ea024edab002bcdbe9"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "SalesOfMileageCredits",
+          "version": "0000027904-24-000003",
+          "ddate": "20211231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 4100000000.0
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_f1189661e45005dd3c5c6b151c8db7770859cc37717f177d1a669df2c6d426cd"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "SalesOfMileageCredits",
+          "version": "0000027904-24-000003",
+          "ddate": "20221231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 5700000000.0
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_92582eb52f0450f90a7294184177215328bdbe29dbe8e999f30aca50168cfb82"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "SalesOfMileageCredits",
+          "version": "0000027904-24-000003",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "uom": "USD",
+          "value": 6900000000.0
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_435cda2769eafd67c213ba86f8c84871099dc9916bc97306646703d8d79f9186"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "DisaggregationOfRevenueTableTextBlock",
+          "version": "us-gaap/2023",
+          "ddate": "20231231",
+          "qtrs": 4.0,
+          "uom": null,
+          "value": "Passenger revenue is composed of passenger ticket sales, loyalty travel awards and travel-related services performed in conjunction with a passengers flight. Passenger revenue by category Year Ended December 31, (in millions) 2023 2022 2021 Ticket $ 43,596 $ 35,626 $ 19,339 Loyalty travel awards 3,462 2,898 1,786 Travel-related services 1,851 1,694 1,394 Total passenger revenue $ 48,909 $ 40,218 $ 22,519 Other Revenue Year Ended December 31, (in millions) 2023 2022 2021 Refinery $ 3,379 $ 4,977 $ 3,229 Loyalty program 3,093 2,597 1,770 Ancillary businesses 840 846 793 Miscellaneous 1,104 894 556 Total other revenue $ 8,416 $ 9,314 $ 6,348"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q037",
+    "nr_data": 9,
+    "base_nl_query": "What have been the liabilities created by DELTA's (adsh 0000027904-24-000003) loyalty program in 2021, 2022 and 2023?",
+    "app_nl_query": "What have been the liabilities created by DELTA's loyalty program in 2021, 2022 and 2023?",
+    "sql_ground_truth": "SELECT n.adsh, n.tag, n.value, n.ddate, n.uom  FROM num n JOIN sub s ON n.adsh = s.adsh  WHERE s.adsh = '0000027904-24-000003' AND s.form = '10-K' AND s.fy IN (2021, 2022, 2023) AND n.tag IN ('LoyaltyProgramLiabilityMileageCreditsEarned','LoyaltyProgramLiabilityTravelMileageCreditsRedeemed','LoyaltyProgramLiabilityNonTravelMileageCreditsRedeemed')",
+    "ground_truth": [
+      [
+        [
+          "num_sub",
+          "no_pk_525d883593e4b843b153a3803c6342f120c1b9c33c23d56cfb0426c6ef00add8"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityMileageCreditsEarned",
+          "value": 2238000000.0,
+          "ddate": "20211231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_73b3f90dfa650ddff0547353a8763baaa1f6f82f2e7e8832c0f1f9e4006d3f53"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityMileageCreditsEarned",
+          "value": 3419000000.0,
+          "ddate": "20221231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_2d36cfafc05a720f404b73e540823b66b7b5165e57f0a06a30b6a9d831944c3e"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityMileageCreditsEarned",
+          "value": 4173000000.0,
+          "ddate": "20231231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_1d9379d146d346f7f9177ab0168b3571be168b4bcc96f94a21a0eb18670b7166"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityNonTravelMileageCreditsRedeemed",
+          "value": 75000000.0,
+          "ddate": "20211231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_1ebf906993df8e574f7abd9541e095e58b277692ce046cebae96c4a08fbc1697"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityNonTravelMileageCreditsRedeemed",
+          "value": 198000000.0,
+          "ddate": "20221231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_d12c3e085e8707edbd13fcedb8241b628660d5c5a21e5c8d7bf62c072f95fb80"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityNonTravelMileageCreditsRedeemed",
+          "value": 173000000.0,
+          "ddate": "20231231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_e385f61a00c04f22b0415db71c760225198185a0470db61cb09ebb8bec2d4829"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityTravelMileageCreditsRedeemed",
+          "value": 1786000000.0,
+          "ddate": "20211231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_f91d9f87bed9344c48c2fb5df2ed63fa43d197968472f84915078ddb6a838012"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityTravelMileageCreditsRedeemed",
+          "value": 2898000000.0,
+          "ddate": "20221231",
+          "uom": "USD"
+        }
+      ],
+      [
+        [
+          "num_sub",
+          "no_pk_813290ab6096684e8532b6eb2d3078994474ea53a7d53b921960ad84d8eafb00"
+        ],
+        {
+          "adsh": "0000027904-24-000003",
+          "tag": "LoyaltyProgramLiabilityTravelMileageCreditsRedeemed",
+          "value": 3462000000.0,
+          "ddate": "20231231",
+          "uom": "USD"
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q038",
+    "nr_data": 5,
+    "base_nl_query": "How much capital did Disney report as amortization of content in 2023 (adsh 0001744489-24-000081)?",
+    "app_nl_query": "How much capital did Disney report as amortization of content in 2023?",
+    "sql_ground_truth": "SELECT n.tag, n.ddate, n.qtrs, n.uom, n.value  FROM num n  WHERE n.adsh = '0001744489-24-000081' AND n.tag IN ('AmortizationOfProducedAndLicensedContentCostsTotal','AmortizationOfProducedContentCosts','AmortizationOfLicensedTelevisionAndProgrammingRights') AND n.ddate = 20231231",
+    "ground_truth": [
+      [
+        [
+          "num",
+          "no_pk_62947f7fd7fe2388af2dc692b8e5e3955a4ad6e5571183fd1a2ae9d5bbe3d7db"
+        ],
+        {
+          "tag": "AmortizationOfLicensedTelevisionAndProgrammingRights",
+          "ddate": "20231231",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 4590000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_ebe7204870d8e4555b0fcd6c29758264a7c6657a3e0cd1231edd4e675427cf0f"
+        ],
+        {
+          "tag": "AmortizationOfProducedAndLicensedContentCostsTotal",
+          "ddate": "20231231",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 7152000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_2b070f0d63d6a11367a544ee394ff2702e957aa3353f4c8bcd431b5e4f26828b"
+        ],
+        {
+          "tag": "AmortizationOfProducedContentCosts",
+          "ddate": "20231231",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 2562000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_d54a1c428df61f19b404875474acc59aa80be3a40617e47d7aa0184bed4eac44"
+        ],
+        {
+          "tag": "AmortizationOfProducedContentCosts",
+          "ddate": "20231231",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 768000000.0
+        }
+      ],
+      [
+        [
+          "num",
+          "no_pk_d3ef926dbb7514287967bf8666f598986aaadc84f67eafbbfeb8c0386de6de37"
+        ],
+        {
+          "tag": "AmortizationOfProducedContentCosts",
+          "ddate": "20231231",
+          "qtrs": 1.0,
+          "uom": "USD",
+          "value": 1794000000.0
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q039",
+    "nr_data": 1,
+    "base_nl_query": "How does Disney break down the costs of producing its content in its filing (adsh 0001744489-24-000081)?",
+    "app_nl_query": "How does Disney break down the costs of producing its content?",
+    "sql_ground_truth": "SELECT tag, version, ddate, value FROM TXT WHERE adsh = '0001744489-24-000081' AND tag = 'ProducedAndLicensedContentCostsAndAdvancesDisclosureTextBlock'",
+    "ground_truth": [
+      [
+        [
+          "TXT",
+          "no_pk_789ce2c442161bdafb9941d150d8b2bd0e7a1acd4f1c814867bd5d7d3b3a9669"
+        ],
+        {
+          "tag": "ProducedAndLicensedContentCostsAndAdvancesDisclosureTextBlock",
+          "version": "0001744489-24-000081",
+          "ddate": "20231231",
+          "value": "Produced and Acquired/Licensed Content Costs and Advances The Company classifies its capitalized produced and acquired/licensed content costs as long-term assets and classifies advances for live programming rights made prior to the live event as short-term assets. For purposes of amortization and impairment, the capitalized content costs are classified based on their predominant monetization strategy as follows:  Individual - lifetime value is predominantly derived from third-party revenues that are directly attributable to the specific film or television title (e.g. theatrical revenues or sales to third-party television programmers)  Group - lifetime value is predominantly derived from third-party revenues that are attributable only to a bundle of titles (e.g. subscription revenue for a DTC service or affiliate fees for a cable television network) Total capitalized produced and licensed content by predominant monetization strategy is as follows: As of December 30, 2023 As of September 30, 2023 Predominantly Monetized Individually Predominantly Monetized as a Group Total Predominantly Monetized Individually Predominantly Monetized as a Group Total Produced content Released, less amortization $ 4,911 $ 13,725 $ 18,636 $ 4,968 $ 13,555 $ 18,523 Completed, not released  1,713 1,713 70 1,786 1,856 In-process 3,157 5,394 8,551 3,331 6,120 9,451 In development or pre-production 262 132 394 279 133 412 $ 8,330 $ 20,964 29,294 $ 8,648 $ 21,594 30,242 Licensed content - Television programming rights and advances 4,840 6,351 Total produced and licensed content $ 34,134 $ 36,593 Current portion $ 1,409 $ 3,002 Non-current portion $ 32,725 $ 33,591 Amortization of produced and licensed content is as follows: Quarter Ended December 30, 2023 December 31, 2022 Produced content Predominantly monetized individually $ 768 $ 1,157 Predominantly monetized as a group 1,794 2,160 2,562 3,317 Licensed programming rights and advances 4,590 4,539 Total produced and licensed content costs (1) $ 7,152 $ 7,856 (1) Primarily included in Costs of services in the Condensed Consolidated Statements of Income."
+        }
+      ]
+    ]
+  },
+  {
+    "id": "q040",
+    "nr_data": 1,
+    "base_nl_query": "What is the reported value of Disney's parks and resorts in 2023 (adsh 0001744489-24-000081)?",
+    "app_nl_query": "What is the reported value of Disney's parks and resorts in 2023?",
+    "sql_ground_truth": "SELECT n.tag, n.ddate, n.qtrs, n.uom, n.value  FROM num n  WHERE n.adsh = '0001744489-24-000081' AND n.tag = 'ParksResortsAndOtherPropertyAtCostExcludingProjectsAndLand' AND n.ddate = 20231231",
+    "ground_truth": [
+      [
+        [
+          "num",
+          "no_pk_0e349ec42991c1dd0368fca51ed9468cddff709f17aadaee85ba97706ff508ba"
+        ],
+        {
+          "tag": "ParksResortsAndOtherPropertyAtCostExcludingProjectsAndLand",
+          "ddate": "20231231",
+          "qtrs": 0.0,
+          "uom": "USD",
+          "value": 28521000000.0
+        }
+      ]
+    ]
+  }
+]

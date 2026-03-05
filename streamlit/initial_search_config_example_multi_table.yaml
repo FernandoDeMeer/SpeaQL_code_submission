@@ -1,0 +1,31 @@
+# Example configuration for multi-table restricted mode
+# Add the content of this file to config.yaml to use this configuration
+
+# Search mode configuration
+search_mode: "restricted_multi_table"
+
+# Configuration for restricted multi-table mode
+restricted_search:
+  # Dictionary of actual table names mapped to their searchable columns
+  tables:
+    "companies":
+      - "company_name"
+      - "description"
+      - "industry"
+      - "country"
+    "individuals":
+      - "name"
+      - "biography"
+      - "occupation"
+      - "net_worth_category"
+  
+  # Dictionary of user-friendly display names mapped to actual table names
+  table_aliases:
+    "Companies Database": "companies"
+    "HNW Individuals": "individuals"
+  
+  # Custom title for the search page
+  title: "SCA - DB Exploration App"
+
+  # Custom instructions
+  instructions: "💼 **Financial Database Search:** Select a database and enter search terms to find companies or wealthy individuals."

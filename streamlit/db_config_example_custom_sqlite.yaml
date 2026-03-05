@@ -1,0 +1,19 @@
+# Example configuration using a custom SQLite database
+# Rename this file to config.yaml to use this configuration
+
+# Database configuration
+database:
+  db_name: "custom_sqlite_db"
+  type: "custom"
+  custom:
+    url: "sqlite+pysqlite:///path/to/your/custom_database.sqlite"
+    engine_options:
+      echo: false
+      execution_options:
+        sqlite_raw_colnames: true
+      # SQLite-specific options
+      connect_args:
+        check_same_thread: false
+        timeout: 20
+        pragmas:
+          foreign_keys: "ON"

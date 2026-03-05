@@ -1,0 +1,89 @@
+# Configuration for SCA Streamlit App
+# This file controls the behavior of the initial search page
+
+# Search mode configuration
+# Options: "full", "restricted_single_table", or "restricted_multi_table"
+
+# # # Default configuration for full mode
+# search_mode: "full"
+# full_search:
+#   title: "DB Exploration App"
+#   instructions: "🔍 **How to start the DB Exploration:** Please select a table and a column to search for a specific value."
+# database:
+#   db_name: "netflix_db"
+
+
+# Configuration for restricted single table mode
+# Only used when search_mode is "restricted_single_table"
+search_mode: "restricted_single_table"
+restricted_search:
+  # Pre-defined table to search in
+  table: "SUB"
+  
+  # Pre-defined columns to search in (list of column names)
+  # If empty, all columns from the table will be available
+  columns: 
+    - "name"
+  
+  # Custom title for the search page when in restricted mode
+  title: "Statements and Notes DB Search"
+  
+  # Custom instructions for restricted mode
+  instructions: "📝 **Search Statements and Notes:** Enter a name to search through submissions."
+
+# Configuration for restricted multi-table mode
+# Only used when search_mode is "restricted_multi_table"
+# restricted_search:
+#   # Dictionary of actual table names mapped to their searchable columns
+#   tables:
+#     "companies":
+#       - "company_name"
+#       - "description"
+#     "individuals":
+#       - "name"
+#       - "biography"
+#   
+#   # Dictionary of user-friendly display names mapped to actual table names
+#   table_aliases:
+#     "Companies": "companies"
+#     "HNW Individuals": "individuals"
+#   
+#   # Custom title for the search page
+#   title: "Financial Database Search"
+#   
+#   # Custom instructions
+#   instructions: "💼 **Financial Database Search:** Select a database and enter search terms."
+
+
+DB_LABELS : {
+    'netflix_db': {
+
+        'movie': 'title',
+        'tv_show': ['title', 'original_title'],
+        'season': 'title',
+        'view_summary': 'id',
+    },
+    'notes_db': {
+        'SUB': 'name',
+        'NUM': 'tag',
+        'CAL': ['ptag', 'ctag'],
+        'TAG': 'tag',
+        "DIM": 'segments',
+        "TXT": 'tag'
+    }
+    
+}
+
+database:
+  db_name: "notes_db"
+  type: "custom"
+  custom:
+    url: "sqlite+pysqlite:///data/2024q1_notes/2024q1_notes.sqlite"
+    engine_options:
+      echo: false
+      execution_options:
+        sqlite_raw_colnames: true
+      # SQLite-specific options
+      connect_args:
+        check_same_thread: false
+        timeout: 20

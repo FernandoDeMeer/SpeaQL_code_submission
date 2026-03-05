@@ -1,0 +1,81 @@
+# define the stages of this CI/CD pipeline
+stages:
+  # this stage contains linting and code styling
+  - lint
+  # this stage will run the tests (if any)
+  - test
+
+# environment variables that will be available in the pipelines
+variables:
+  # redirect pip's cache directory to be inside the project directory
+  # (because GitLab can only cache paths within the project)
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # set the location of the virtual env (relative to the project)
+  PYTHON_VENV_DIR: "${CI_PROJECT_DIR}/.venv"
+
+# default and common commands executed before all stages
+default:
+  # the docker image to use for all stages
+  image: python:3.12
+
+  # commands executed before the scripts of each stage
+  # in this case, we print the python version, create a virtual environment,
+  # activate the environment, and upgrade pip
+  before_script:
+    - python -V
+    - python -m venv "${PYTHON_VENV_DIR}"
+    - source "${PYTHON_VENV_DIR}/bin/activate"
+    - pip install --upgrade pip
+
+  # apply caching to the script to speed up the pipeline execution. The cache
+  # will be invalidated by changing to the python dependencies
+  cache:
+    # the key is a combination of the project, the job name (stage), and a hash
+    # of the dependency files. If setup.cfg or pyproject.toml changes, the hash changes, and a new
+    # cache is created
+    key:
+      files:
+        - setup.cfg
+        - pyproject.toml
+      prefix: "${CI_JOB_NAME}"
+
+    # these are the directories we tell GitLab to save
+    paths:
+      - "${PIP_CACHE_DIR}"
+      - "${PYTHON_VENV_DIR}"
+
+    # 'pull-push' policy means the job will download the cache if it exists
+    # and upload a new version if the job completes successfully
+    policy: pull-push
+
+# here we define what each stage will do
+# this job handles fast static analysis like linting and formatting
+lint:
+  stage: lint
+  script:
+    - pip install pre-commit
+    - pre-commit run --all-files --show-diff-on-failure
+  rules:
+    - if: ${CI_PIPELINE_SOURCE} == 'merge_request_event'
+    - if: ${CI_COMMIT_BRANCH} == ${CI_DEFAULT_BRANCH}
+
+# this job handles functional testing
+test:
+  stage: test
+  script:
+    # install the DB Knowledge Graph Explorer package with test dependencies
+    - pip install -e .[dev]
+    # run tests with pytest and get code coverage for dbkgexp package
+    # Note: we stay in project directory to ensure proper path resolution
+    - pytest --cov=dbkgexp --cov-report=term-missing --cov-report=xml:coverage.xml ${CI_PROJECT_DIR}/test
+  coverage: '/^TOTAL.+?(\d+\%)$/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+    paths:
+      - coverage.xml
+  rules:
+    - if: ${CI_PIPELINE_SOURCE} == 'merge_request_event'
+    - if: ${CI_COMMIT_BRANCH} == ${CI_DEFAULT_BRANCH}

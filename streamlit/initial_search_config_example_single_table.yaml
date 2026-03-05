@@ -1,0 +1,22 @@
+# Example configuration for single table restricted mode
+# Add the content of this file to config.yaml to use this configuration
+
+# Search mode configuration
+search_mode: "restricted_single_table"
+
+# Configuration for restricted single table mode
+restricted_search:
+  # Pre-defined table to search in
+  table: "netflix_titles"
+  
+  # Pre-defined columns to search in (list of column names)
+  # If empty, all columns from the table will be available
+  columns: 
+    - "title"
+    - "description"
+  
+  # Custom title for the search page
+  title: "Netflix Content Search"
+  
+  # Custom instructions
+  instructions: "🎬 **Search Netflix Content:** Enter keywords to search through Netflix titles and descriptions."
