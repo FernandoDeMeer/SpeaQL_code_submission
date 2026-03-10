@@ -9,7 +9,7 @@ import re
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 
-from dbkgexp.rdb_explorer import stable_row_id
+from speaql.rdb_explorer import stable_row_id
 
 # load query functions
 file_path_query = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../data/queries/sql_queries.py'))

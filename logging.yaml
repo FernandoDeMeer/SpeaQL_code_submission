@@ -13,11 +13,11 @@
     files:
       formatter: standard_formatter
       class: logging.handlers.RotatingFileHandler
-      filename: dbkgexp.log
+      filename: speaql.log
       mode: w
       level: DEBUG
   loggers:
-    dbkgexp:
+    speaql:
       handlers:
         - console
         - files

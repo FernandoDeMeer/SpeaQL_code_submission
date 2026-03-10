@@ -9,7 +9,7 @@ import dspy
 import tiktoken
 
 from datetime import datetime
-from dbkgexp.rel_node import RelationalNode
+from speaql.rel_node import RelationalNode
 
 def num_tokens_from_string(string: str, encoding) -> int:
     return len(encoding.encode(string))

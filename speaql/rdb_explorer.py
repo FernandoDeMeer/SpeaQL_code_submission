@@ -7,7 +7,7 @@ from typing import Dict, Any, Optional, List, Union, Tuple
 import networkx as nx
 import pandas as pd
 
-from dbkgexp.rel_node import RelationalNode
+from speaql.rel_node import RelationalNode
 
 def stable_row_id(row:dict) -> str:
     """

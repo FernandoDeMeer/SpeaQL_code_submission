@@ -3,8 +3,8 @@ from typing import Dict, Any, List, Tuple, Optional
 import json
 import re
 
-from dbkgexp.llm_handler import LLMHandler
-from dbkgexp.rel_node import RelationalNode
+from speaql.llm_handler import LLMHandler
+from speaql.rel_node import RelationalNode
 
 
 class StreamlitLLMHandler:

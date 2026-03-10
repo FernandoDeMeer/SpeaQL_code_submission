@@ -5,9 +5,9 @@ import sqlalchemy as sa
 from typing import Dict, List, Tuple
 from unittest.mock import Mock, patch
 
-from dbkgexp.rel_node import RelationalNode
-from dbkgexp.rdb_explorer import RDBExplorer
-from dbkgexp.llm_handler import RelevantNodeExtraction, QuerySummary, LLMHandler
+from speaql.rel_node import RelationalNode
+from speaql.rdb_explorer import RDBExplorer
+from speaql.llm_handler import RelevantNodeExtraction, QuerySummary, LLMHandler
 from sqlalchemy import create_engine, func
 
 
@@ -74,7 +74,7 @@ def llm_handler():
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         # Create a mock LLM handler for CI environments without API key
-        with patch('dbkgexp.llm_handler.LLMHandler') as mock_handler:
+        with patch('speaql.llm_handler.LLMHandler') as mock_handler:
             mock_instance = Mock()
             mock_instance._graph_to_dict_representation.return_value = {"test_node": {"data": {}}}
             mock_instance.forward.return_value = ([], [], QuerySummary(summary="Test summary"))

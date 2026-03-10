@@ -4,32 +4,32 @@
 # Search mode configuration
 # Options: "full", "restricted_single_table", or "restricted_multi_table"
 
-# # # Default configuration for full mode
-# search_mode: "full"
-# full_search:
-#   title: "DB Exploration App"
-#   instructions: "🔍 **How to start the DB Exploration:** Please select a table and a column to search for a specific value."
-# database:
-#   db_name: "netflix_db"
+# # Default configuration for full mode
+search_mode: "full"
+full_search:
+  title: "SpeaQL NetflixDB Exploration App"
+  instructions: "🔍 **How to start the DB Exploration:** Please select a table and a column to search for a specific value."
+database:
+  db_name: "netflix_db"
 
 
-# Configuration for restricted single table mode
-# Only used when search_mode is "restricted_single_table"
-search_mode: "restricted_single_table"
-restricted_search:
-  # Pre-defined table to search in
-  table: "SUB"
+# # Configuration for restricted single table mode
+# # Only used when search_mode is "restricted_single_table"
+# search_mode: "restricted_single_table"
+# restricted_search:
+#   # Pre-defined table to search in
+#   table: "SUB"
   
-  # Pre-defined columns to search in (list of column names)
-  # If empty, all columns from the table will be available
-  columns: 
-    - "name"
+#   # Pre-defined columns to search in (list of column names)
+#   # If empty, all columns from the table will be available
+#   columns: 
+#     - "name"
   
-  # Custom title for the search page when in restricted mode
-  title: "Statements and Notes DB Search"
+#   # Custom title for the search page when in restricted mode
+#   title: "Statements and Notes DB Search"
   
-  # Custom instructions for restricted mode
-  instructions: "📝 **Search Statements and Notes:** Enter a name to search through submissions."
+#   # Custom instructions for restricted mode
+#   instructions: "📝 **Search Statements and Notes:** Enter a name to search through submissions."
 
 # Configuration for restricted multi-table mode
 # Only used when search_mode is "restricted_multi_table"
@@ -74,16 +74,16 @@ DB_LABELS : {
     
 }
 
-database:
-  db_name: "notes_db"
-  type: "custom"
-  custom:
-    url: "sqlite+pysqlite:///data/2024q1_notes/2024q1_notes.sqlite"
-    engine_options:
-      echo: false
-      execution_options:
-        sqlite_raw_colnames: true
-      # SQLite-specific options
-      connect_args:
-        check_same_thread: false
-        timeout: 20
+# database:
+#   db_name: "notes_db"
+#   type: "custom"
+#   custom:
+#     url: "sqlite+pysqlite:///data/2024q1_notes/2024q1_notes.sqlite"
+#     engine_options:
+#       echo: false
+#       execution_options:
+#         sqlite_raw_colnames: true
+#       # SQLite-specific options
+#       connect_args:
+#         check_same_thread: false
+#         timeout: 20

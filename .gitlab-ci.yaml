@@ -65,9 +65,9 @@ test:
   script:
     # install the DB Knowledge Graph Explorer package with test dependencies
     - pip install -e .[dev]
-    # run tests with pytest and get code coverage for dbkgexp package
+    # run tests with pytest and get code coverage for speaql package
     # Note: we stay in project directory to ensure proper path resolution
-    - pytest --cov=dbkgexp --cov-report=term-missing --cov-report=xml:coverage.xml ${CI_PROJECT_DIR}/test
+    - pytest --cov=speaql --cov-report=term-missing --cov-report=xml:coverage.xml ${CI_PROJECT_DIR}/test
   coverage: '/^TOTAL.+?(\d+\%)$/'
   artifacts:
     reports:

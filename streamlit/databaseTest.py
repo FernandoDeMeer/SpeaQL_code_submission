@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 # Writable engine (no mode=ro / immutable)
 
 engine = create_engine(
-    "sqlite+pysqlite:////Users/rolandsrepetto/db_kg_exp/streamlit/netflixdb.sqlite"
+    "sqlite+pysqlite:////Users/rolandsrepetto/speaql/streamlit/netflixdb.sqlite"
 )
 
 with engine.begin() as conn:

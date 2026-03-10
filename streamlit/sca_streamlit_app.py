@@ -12,7 +12,7 @@ from sqlalchemy import MetaData, Table, select
 from sqlalchemy.engine import Engine
 from pathlib import Path
 from sca_gui_db_utils import SCAGuiDBUtils
-from dbkgexp.rdb_explorer import RDBExplorer
+from speaql.rdb_explorer import RDBExplorer
 from sqlalchemy import event
 import sqlite3
 import yaml
@@ -20,9 +20,9 @@ import math
 import random
 
 from streamlit_llm_handler import StreamlitLLMHandler
-from dbkgexp.rel_node import RelationalNode
+from speaql.rel_node import RelationalNode
 from session_logger import SessionLogger
-from dbkgexp.rdb_explorer import stable_row_id
+from speaql.rdb_explorer import stable_row_id
 
 
 class SCAStreamlitApp:

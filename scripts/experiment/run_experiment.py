@@ -24,9 +24,9 @@ from sqlalchemy import MetaData, select
 
 from dotenv import load_dotenv
 
-from dbkgexp.rdb_explorer import RDBExplorer, stable_row_id
-from dbkgexp.llm_handler import LLMHandler
-from dbkgexp.rel_node import RelationalNode
+from speaql.rdb_explorer import RDBExplorer, stable_row_id
+from speaql.llm_handler import LLMHandler
+from speaql.rel_node import RelationalNode
 
 
 class ExperimentLogger:

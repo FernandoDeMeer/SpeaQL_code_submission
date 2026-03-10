@@ -1,6 +1,6 @@
-# DB Knowledge Graph Explorer (DB_KG_EXP)
+# SpeaQL: An LLM-powered data retrieval system for Exploratory Tasks in RDBs
 
-An interactive knowledge exploration tool that enables intuitive navigation and extraction of meaningful insights from relational databases through knowledge graph visualization and LLM-powered analysis.
+SpeaQL is an interactive data exploration tool that enables intuitive navigation and extraction of meaningful insights from relational databases through knowledge graph visualization and LLM-powered analysis.
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/streamlit-dashboard-red.svg)](https://streamlit.io/)
@@ -8,7 +8,7 @@ An interactive knowledge exploration tool that enables intuitive navigation and 
 
 ## Overview
 
-DB_KG_EXP combines GUI interfaces, relational knowledge graph visualization, and LLM-powered chatbots to transform database exploration from complex SQL queries into an intuitive, visual experience. The tool automatically builds knowledge graphs from relational database structures and enables natural language querying of your data.
+SpeaQL combines GUI interfaces, relational knowledge graph visualization, and LLM-powered chatbots to transform database exploration from complex SQL queries into an intuitive, visual experience. The tool automatically builds knowledge graphs from relational database structures and enables natural language querying of your data.
 
 ## Quick Start
 
@@ -21,7 +21,7 @@ DB_KG_EXP combines GUI interfaces, relational knowledge graph visualization, and
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd db_kg_exp
+   cd speaql
    ```
 
 2. **Setup environment (recommended):**
@@ -44,7 +44,7 @@ DB_KG_EXP combines GUI interfaces, relational knowledge graph visualization, and
 
 ### Reproducing the paper experiments
 
-Follow the steps below from the project root (`db_kg_exp/`).
+Follow the steps below from the project root (`speaql/`).
 
 #### 1) Prepare environment
 
@@ -163,8 +163,8 @@ The project includes a Netflix dataset for testing:
 ## Project Architecture
 
 ```
-db_kg_exp/
-├── dbkgexp/                    # Core application modules
+speaql/
+├── speaql/                     # Core application modules
 │   ├── rdb_explorer.py         # Recursive foreign key graph builder
 │   ├── rel_node.py             # Data model for graph nodes
 │   ├── llm_handler.py          # LLM integration and processing
